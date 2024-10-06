@@ -1,0 +1,12 @@
+.comment-container {
+    display: grid;
+    grid-template-columns: 32px auto;
+    align-items: start;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.comment-container > div > p {
+    margin: 3px 0;
+    font-size: 13px;
+}
