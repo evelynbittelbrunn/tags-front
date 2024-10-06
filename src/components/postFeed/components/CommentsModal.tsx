@@ -1,5 +1,6 @@
 import { Modal } from 'antd'
 import React, { useState } from 'react'
+import Comment from '../../comment/Comment';
 
 interface ICommentModal {
     open: boolean;
@@ -11,7 +12,7 @@ const CommentsModal = ({
     setOpen
 }: ICommentModal) => {
 
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const showLoading = () => {
         setOpen(true);
@@ -29,9 +30,9 @@ const CommentsModal = ({
             open={open}
             onCancel={() => setOpen(false)}
         >
-            <p>Some contents...</p>
-            <p>Some contents...</p>
-            <p>Some contents...</p>
+            <Comment />
+            <Comment />
+            <Comment />
         </Modal>
     )
 }
