@@ -1,0 +1,36 @@
+.card-post-feed {
+    margin: 0 auto;
+    width: 450px;
+    padding: 20px 0;
+    border-bottom: 0.5px solid #370759;
+}
+
+.card-post-feed span {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.card-post-feed h4 {
+    color: #F0F0F0;
+    margin: 0;
+    font-size: 13px;
+}
+
+.card-post-feed span {
+    font-size: 12px;
+}
+
+.card-post-feed p {
+    font-size: 13.5px;
+}
+
+.post-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.post-actions > div {
+    padding: 5px 0;
+    cursor: pointer;
+}
