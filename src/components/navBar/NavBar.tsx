@@ -1,12 +1,14 @@
 import { HomeOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Popover } from 'antd'
+import { Avatar, Button, Popover } from 'antd'
 import { Link } from 'react-router-dom'
 import './styles.css';
 
 export default function NavBar() {
 
     const content = (
-        <div>Teste</div>
+        <div>
+            <Link to="/perfil"><Button type="text">Meu Perfil</Button></Link>
+        </div>
     );
 
 
@@ -15,7 +17,7 @@ export default function NavBar() {
             <nav>
                 <Link to="/"><HomeOutlined /></Link>
 
-                <Popover content={content} title="Title" trigger="click">
+                <Popover content={content} trigger="click">
                     <Avatar icon={<UserOutlined />} />
                 </Popover>
             </nav>
