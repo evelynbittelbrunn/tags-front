@@ -12,7 +12,7 @@ export function LOGIN_POST(body: any) {
 }
 
 export function TOKEN_VALIDATE_POST(token: string) {
-    return api.post('/jwt-auth/v1/token/validate', null, {
+    return api.post('/auth/validate-token', null, {
         headers: {
             Authorization: 'Bearer ' + token,
         },
@@ -20,7 +20,7 @@ export function TOKEN_VALIDATE_POST(token: string) {
 }
 
 export function USER_GET(token: string) {
-    return api.get('/api/user', {
+    return api.get('/auth/validate-token', {
         headers: {
             Authorization: 'Bearer ' + token,
         },
