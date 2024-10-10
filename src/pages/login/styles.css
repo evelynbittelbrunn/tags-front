@@ -1,0 +1,20 @@
+.login-card {
+    display: flex;
+    justify-content: center;
+}
+
+.ant-form {
+    width: 400px;
+}
+
+.ant-row {
+    flex-direction: column;
+}
+
+.ant-col {
+    text-align: left !important;
+}
+
+.ant-form-item-required::before {
+    display: none !important;
+}
