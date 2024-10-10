@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { LOGIN_POST, TOKEN_VALIDATE_POST, USER_GET } from '../services/api';
 
 type UserContextType = {
-    userLogin: (username: string, password: string) => Promise<void>;
+    userLogin: (email: string, password: string) => Promise<void>;
     userLogout: () => void;
     data: any;
     error: string | null;
@@ -23,6 +23,7 @@ const UserStorage = ({ children }: any) => {
     useEffect(() => {
         async function autoLogin() {
             const token = window.localStorage.getItem('token');
+            console.log(token);
             if (token) {
                 try {
                     setError(null);
@@ -57,12 +58,12 @@ const UserStorage = ({ children }: any) => {
         }
     }
 
-    async function userLogin(username: string, password: string) {
+    async function userLogin(email: string, password: string) {
         try {
             setError(null);
             setLoading(true);
 
-            const response = await LOGIN_POST({ username, password });
+            const response = await LOGIN_POST({ email, password });
 
             if (!response || !response.data.token) {
                 throw new Error(`Error: Falha na autenticação`);

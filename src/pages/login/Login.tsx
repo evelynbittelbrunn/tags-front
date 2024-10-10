@@ -1,16 +1,28 @@
 import { Button, Form, Input } from 'antd'
 import { Link } from 'react-router-dom'
 import './styles.css';
+import { UserContext } from '../../contexts/UserContext';
+import { useContext } from 'react';
+import { ignore } from 'antd/es/theme/useToken';
 
 type FieldType = {
     username?: string;
     password?: string;
+    email?: string;
     remember?: string;
 };
 
 const Login = () => {
 
-    function onFinish() {
+    const { userLogin, error, loading } = useContext(UserContext)!;
+
+    async function onFinish(data: { email: string; password: string }) {
+
+        const { email, password } = data;
+
+        if (data.email != "" && data.password != "") {
+            userLogin(email, password);
+        }
 
     }
 
@@ -33,7 +45,7 @@ const Login = () => {
                 >
                     <Form.Item<FieldType>
                         label="Username"
-                        name="username"
+                        name="email"
                         rules={[{ required: true, message: 'Please input your username!' }]}
                     >
                         <Input />
