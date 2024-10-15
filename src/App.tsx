@@ -6,20 +6,24 @@ import Profile from './pages/profile/Profile';
 import AuthRoutes from './routes/AuthRoutes';
 import UserStorage from './contexts/UserContext';
 import EditProfile from './pages/editProfile/EditProfile';
+import FloatButtonMenu from './components/floatButtonMenu/FloatButtonMenu';
 
 function App() {
     return (
         <div className='app'>
             <BrowserRouter>
                 <UserStorage>
-                    <NavBar />
-                    <div className='main-container'>
-                        <Routes>
-                            <Route path="/" element={<Feed />} />
-                            <Route path="/login/*" element={<AuthRoutes />} />
-                            <Route path="/perfil" element={<Profile />} />
-                            <Route path='/editar-perfil' element={<EditProfile />} />
-                        </Routes>
+                    <div className='body'>
+                        <NavBar />
+                        <div className='main-container'>
+                            <Routes>
+                                <Route path="/" element={<Feed />} />
+                                <Route path="/login/*" element={<AuthRoutes />} />
+                                <Route path="/perfil" element={<Profile />} />
+                                <Route path='/editar-perfil' element={<EditProfile />} />
+                            </Routes>
+                        </div>
+                        <FloatButtonMenu />
                     </div>
                 </UserStorage>
             </BrowserRouter>
