@@ -34,6 +34,10 @@ a{
     text-decoration: none;
 }
 
+.body {
+    position: relative;
+}
+
 .ant-input,
 .ant-input-affix-wrapper,
 .ant-input-affix-wrapper * {
