@@ -37,7 +37,7 @@ a{
 .body {
     position: relative;
 }
-
+/* 
 .ant-input,
 .ant-input-affix-wrapper,
 .ant-input-affix-wrapper * {
@@ -53,7 +53,10 @@ a{
 
 .ant-input-outlined:focus {
     border-color: #BCACC7 !important;
-}
+} */
+
+
+
 
 /* .ant-input:focus,
 .ant-input:hover,

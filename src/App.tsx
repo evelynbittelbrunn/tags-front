@@ -7,6 +7,7 @@ import AuthRoutes from './routes/AuthRoutes';
 import UserStorage from './contexts/UserContext';
 import EditProfile from './pages/editProfile/EditProfile';
 import FloatButtonMenu from './components/floatButtonMenu/FloatButtonMenu';
+import NewPostModal from './components/newPostModal/NewPostModal';
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
                             </Routes>
                         </div>
                         <FloatButtonMenu />
+                        <NewPostModal />
                     </div>
                 </UserStorage>
             </BrowserRouter>
