@@ -69,8 +69,10 @@ const UserStorage = ({ children }: any) => {
                 throw new Error(`Error: Falha na autenticação`);
             }
 
-            const { token } = response.data;
+            const { token, userId } = response.data;
+
             window.localStorage.setItem('token', token);
+            window.localStorage.setItem('user', userId);
             await getUser(token);
             navigate('/');
         } catch (error: any) {

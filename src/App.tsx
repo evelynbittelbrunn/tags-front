@@ -8,8 +8,14 @@ import UserStorage from './contexts/UserContext';
 import EditProfile from './pages/editProfile/EditProfile';
 import FloatButtonMenu from './components/floatButtonMenu/FloatButtonMenu';
 import NewPostModal from './components/newPostModal/NewPostModal';
+import { useState } from 'react';
+import TagsModal from './components/tagsModal/TagsModal';
 
 function App() {
+
+    const [openNewPostModal, setOpenNewPostModal] = useState<boolean>(false);
+    const [openTagsModal, setOpenTagsModal] = useState<boolean>(false);
+
     return (
         <div className='app'>
             <BrowserRouter>
@@ -24,8 +30,18 @@ function App() {
                                 <Route path='/editar-perfil' element={<EditProfile />} />
                             </Routes>
                         </div>
-                        <FloatButtonMenu />
-                        <NewPostModal />
+                        <FloatButtonMenu
+                            setOpenNewPostModal={setOpenNewPostModal}
+                            setOpenTagsModal={setOpenTagsModal}
+                        />
+                        <TagsModal
+                            openTagsModal={openTagsModal}
+                            setOpenTagsModal={setOpenTagsModal}
+                        />
+                        <NewPostModal
+                            openNewPostModal={openNewPostModal}
+                            setOpenNewPostModal={setOpenNewPostModal}
+                        />
                     </div>
                 </UserStorage>
             </BrowserRouter>
