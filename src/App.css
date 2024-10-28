@@ -67,3 +67,7 @@ a{
     background: white;
     box-shadow: 0 0 0 3px #fea;
 } */
+
+.ant-form-item-control {
+    flex: none !important;
+}

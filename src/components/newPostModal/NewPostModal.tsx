@@ -1,7 +1,8 @@
 import { PlusOutlined } from '@ant-design/icons';
-import { Form, FormProps, Modal, Select, SelectProps, Upload } from 'antd'
+import { Form, FormProps, message, Modal, Select, SelectProps, Upload } from 'antd'
 import TextArea from 'antd/es/input/TextArea';
 import { useState } from 'react'
+import { NEW_POST } from '../../services/api';
 
 type FieldType = {
     username?: string;
@@ -9,9 +10,22 @@ type FieldType = {
     remember?: string;
 };
 
-const NewPostModal = () => {
+type Image = {
+    photo: any;
+    imageBase64: string;
+}
 
-    const [isModalOpen, setIsModalOpen] = useState(true);
+interface INewPostModal {
+    openNewPostModal: boolean;
+    setOpenNewPostModal: (b: boolean) => void;
+}
+
+const NewPostModal = ({
+    openNewPostModal,
+    setOpenNewPostModal
+}: INewPostModal) => {
+
+    const [newImage, setNewImage] = useState<Image>({} as Image);
     const [form] = Form.useForm();
 
     const options: SelectProps['options'] = [];
@@ -24,15 +38,15 @@ const NewPostModal = () => {
     }
 
     const showModal = () => {
-        setIsModalOpen(true);
+        setOpenNewPostModal(true);
     };
 
     const handleOk = () => {
-        setIsModalOpen(false);
+        setOpenNewPostModal(false);
     };
 
     const handleCancel = () => {
-        setIsModalOpen(false);
+        setOpenNewPostModal(false);
     };
 
     const normFile = (e: any) => {
@@ -42,9 +56,25 @@ const NewPostModal = () => {
         return e?.fileList;
     };
 
-    const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-
+    const onFinish: FormProps<FieldType>['onFinish'] = async (values: any) => {
+        console.log(newImage)
         console.log('Success:', values);
+
+        const userId = localStorage.getItem('user');
+
+        const newPost = {
+            userId: userId,
+            content: values.postContent,
+            imageUrl: newImage.imageBase64
+        };
+
+        try {
+            const response = await NEW_POST(newPost);
+            // setData(response.data);
+            // setLogin(true);
+        } catch (error) {
+
+        }
     };
 
     const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
@@ -58,7 +88,7 @@ const NewPostModal = () => {
     return (
         <Modal
             title="Basic Modal"
-            open={isModalOpen}
+            open={openNewPostModal}
             onOk={handleOk}
             onCancel={handleCancel}
             okButtonProps={{ htmlType: "submit", form: "new-post" }}
@@ -78,10 +108,41 @@ const NewPostModal = () => {
                     name="upload"
                 >
                     <Upload
-                        action="/upload.do"
-                        listType="picture-card"
-                        maxCount={1}
-                        accept="image/png"
+                        beforeUpload={(file) => {
+                            const isImage =
+                                file.type === 'image/jpeg' ||
+                                file.type === 'image/png' ||
+                                file.type === 'image/jpg';
+
+                            if (!isImage) {
+                                message.error('Você só pode fazer upload de arquivos JPG/PNG.');
+                                return Upload.LIST_IGNORE;
+                            }
+
+                            const maxFileSize = 5 * 1024 * 1024;
+                            if (file.size > maxFileSize) {
+                                message.error('O tamanho da imagem não pode exceder 5 MB.');
+                                return Upload.LIST_IGNORE;
+                            }
+
+                            const reader = new FileReader();
+                            reader.readAsDataURL(file);
+                            reader.onload = () => {
+                                setNewImage({
+                                    photo: file,
+                                    imageBase64: reader.result as string,
+                                });
+                            };
+                            reader.onerror = () => {
+                                message.error('Erro ao ler o arquivo.');
+                            };
+
+                            return false;
+                        }}
+                        fileList={newImage.photo ? [newImage.photo] : []}
+                        onRemove={() =>
+                            setNewImage({ photo: null, imageBase64: '' })
+                        }
                     >
                         <button style={{ border: 0, background: 'none' }} type="button">
                             <PlusOutlined />

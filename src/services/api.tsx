@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const token = localStorage.getItem('token');
+
 const api = axios.create({
     baseURL: 'http://localhost:8080',
     headers: {
@@ -21,6 +23,30 @@ export function TOKEN_VALIDATE_POST(token: string) {
 
 export function USER_GET(token: string) {
     return api.get('/auth/validate-token', {
+        headers: {
+            Authorization: 'Bearer ' + token,
+        },
+    });
+}
+
+export function NEW_POST(body: any) {
+    return api.post('/tags/posts/create', body, {
+        headers: {
+            Authorization: 'Bearer ' + token,
+        },
+    });
+}
+
+export function GET_TAGS(userId: string) {
+    return api.get(`/tags/categories/user-categories/${userId}`, {
+        headers: {
+            Authorization: 'Bearer ' + token,
+        },
+    });
+}
+
+export function POST_TAGS(body: any) {
+    return api.post('/tags/user-categories/save', body, {
         headers: {
             Authorization: 'Bearer ' + token,
         },

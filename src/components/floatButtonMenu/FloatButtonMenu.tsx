@@ -3,7 +3,15 @@ import { Flex, FloatButton } from 'antd';
 import React from 'react'
 import './styles.css';
 
-const FloatButtonMenu = () => {
+interface IFloatButtonMenu {
+    setOpenNewPostModal: (b: boolean) => void;
+    setOpenTagsModal: (b: boolean) => void;
+}
+
+const FloatButtonMenu = ({
+    setOpenNewPostModal,
+    setOpenTagsModal
+}: IFloatButtonMenu) => {
 
     const BOX_SIZE = 100;
 
@@ -37,8 +45,16 @@ const FloatButtonMenu = () => {
                             style={style}
                             icon={<PlusOutlined />}
                         >
-                            <FloatButton icon={<FormOutlined />} tooltip={"Publicar"} />
-                            <FloatButton icon={<TagOutlined />} tooltip={"Definir tags"} />
+                            <FloatButton
+                                icon={<FormOutlined />}
+                                tooltip={"Publicar"}
+                                onClick={() => setOpenNewPostModal(true)}
+                            />
+                            <FloatButton
+                                icon={<TagOutlined />}
+                                tooltip={"Definir tags"}
+                                onClick={() => setOpenTagsModal(true)}
+                            />
                         </FloatButton.Group>
                     </div>
                 </Flex>
