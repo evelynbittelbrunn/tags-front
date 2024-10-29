@@ -3,12 +3,63 @@ import { Avatar } from 'antd'
 import './styles.css';
 import Comment from '../icons/Comment';
 import Heart from '../icons/Heart';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CommentsModal from './components/CommentsModal';
+import { POSTS_GET } from '../../services/api';
 
 export default function PostFeed() {
 
     const [openCommentsModal, setOpenCommentsModal] = useState<boolean>(false);
+    const [pages, setPages] = useState(0);
+    const [infinite, setInfinite] = useState(true);
+
+    console.log(pages);
+
+    useEffect(() => {
+        let wait = false;
+        function infiniteScroll() {
+            if (infinite) {
+                // Total de scroll dado
+                const scroll = window.scrollY;
+                // Total da altura da página
+                const height = document.body.offsetHeight - window.innerHeight;
+                if (scroll > height * 0.75 && !wait) {
+                    setPages((pages) => pages + 1);
+                    console.log("+ 6");
+                    wait = true;
+                    // Timeout para voltar o wait para falso depois de 500 milissegundos
+                    // Isso ajuda para a requisição não ser chamada toda hora, pois a condição depende do wait
+                    setTimeout(() => {
+                        wait = false;
+                    }, 500);
+                }
+            }
+        }
+
+        window.addEventListener('wheel', infiniteScroll);
+        window.addEventListener('scroll', infiniteScroll);
+        return () => {
+            window.removeEventListener('wheel', infiniteScroll);
+            window.removeEventListener('scroll', infiniteScroll);
+        }
+    }, [infinite]);
+
+    useEffect(() => {
+        if (!infinite) return;
+        fetchPhotos();
+    }, [pages]);
+
+    async function fetchPhotos() {
+        const total = 6;
+
+        const response = await POSTS_GET(pages, total);
+
+        const { data, status } = response;
+
+        // Verifica se veio menos imagens que o total
+        // Subentende-se que acabaram as postagens e não precisa mais fazer requisição
+        if (response && status == 200 && data.length < total) setInfinite(false);
+    }
 
     return (
         <>
