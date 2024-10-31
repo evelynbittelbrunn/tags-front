@@ -1,6 +1,8 @@
 body {
     background-color: #151515;
     color: #F0F0F0;
+    position: relative;
+    margin-top: 55px;
 }
 
 .app {
