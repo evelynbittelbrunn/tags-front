@@ -1,5 +1,5 @@
-import { UserOutlined } from '@ant-design/icons';
-import { Avatar } from 'antd';
+import { LoadingOutlined, UserOutlined } from '@ant-design/icons';
+import { Avatar, Spin } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { POSTS_GET } from '../../../services/api';
 import Heart from '../../icons/Heart';
@@ -11,29 +11,39 @@ interface IPage {
     infinite: boolean;
     page: number;
     setInfinite: (b: boolean) => void;
+    isLoadingRequest: any;
+    setIsLoadingRequest: any
 }
 
 const Page = ({
     infinite,
     page,
-    setInfinite
+    setInfinite,
+    isLoadingRequest,
+    setIsLoadingRequest
 }: IPage) => {
 
     const [openCommentsModal, setOpenCommentsModal] = useState<boolean>(false);
     const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
-        if (!infinite) return;
+        if (!infinite || isLoadingRequest) return;
+        setLoading(true)
+        setIsLoadingRequest(true);
         fetchPhotos();
     }, [page]);
 
     async function fetchPhotos() {
+
         const total = 6;
 
         const response = await POSTS_GET(page, total);
 
         const { data, status } = response;
 
+        setIsLoadingRequest(false);
+        setLoading(false);
         setPosts(data);
 
         // Verifica se veio menos imagens que o total
@@ -41,6 +51,7 @@ const Page = ({
         if (response && status == 200 && data.length < total) setInfinite(false);
     }
 
+    if (loading) return <Spin indicator={<LoadingOutlined spin />} size="small" />;
     if (posts.length > 0) return (
         <>
             {posts.map((post: PostAttributes) => {

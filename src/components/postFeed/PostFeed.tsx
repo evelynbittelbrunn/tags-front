@@ -6,8 +6,7 @@ export default function PostFeed() {
 
     const [pages, setPages] = useState<number[]>([1]);
     const [infinite, setInfinite] = useState(true);
-
-    console.log(pages);
+    const [isLoadingRequest, setIsLoadingRequest] = useState<boolean>(false);
 
     useEffect(() => {
         let wait = false;
@@ -17,15 +16,14 @@ export default function PostFeed() {
                 const scroll = window.scrollY;
                 // Total da altura da página
                 const height = document.body.offsetHeight - window.innerHeight;
-                if (scroll > height * 0.75 && !wait) {
+                if (scroll > height * 0.75 && !wait && !isLoadingRequest) {
                     setPages((pages) => [...pages, pages.length + 1]);
-                    console.log("+ 6");
                     wait = true;
                     // Timeout para voltar o wait para falso depois de 500 milissegundos
                     // Isso ajuda para a requisição não ser chamada toda hora, pois a condição depende do wait
                     setTimeout(() => {
                         wait = false;
-                    }, 500);
+                    }, 1000);
                 }
             }
         }
@@ -45,6 +43,8 @@ export default function PostFeed() {
                     infinite={infinite}
                     page={page}
                     setInfinite={setInfinite}
+                    isLoadingRequest={isLoadingRequest}
+                    setIsLoadingRequest={setIsLoadingRequest}
                 />
             ))}
         </>
