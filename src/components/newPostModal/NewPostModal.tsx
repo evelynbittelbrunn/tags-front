@@ -3,6 +3,7 @@ import { Form, FormProps, message, Modal, Select, SelectProps, Upload } from 'an
 import TextArea from 'antd/es/input/TextArea';
 import { useState } from 'react'
 import { NEW_POST } from '../../services/api';
+import "./styles.css"
 
 type FieldType = {
     username?: string;
@@ -87,7 +88,7 @@ const NewPostModal = ({
 
     return (
         <Modal
-            title="Basic Modal"
+            title="Nova Postagem"
             open={openNewPostModal}
             onOk={handleOk}
             onCancel={handleCancel}
@@ -139,6 +140,9 @@ const NewPostModal = ({
 
                             return false;
                         }}
+                        listType="picture-card"
+                        accept="image/png"
+                        maxCount={1}
                         fileList={newImage.photo ? [newImage.photo] : []}
                         onRemove={() =>
                             setNewImage({ photo: null, imageBase64: '' })
