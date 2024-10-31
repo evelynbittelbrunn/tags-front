@@ -39,6 +39,7 @@ const Login = () => {
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
                     autoComplete="off"
+                    className='form-login'
                 >
                     <Form.Item<FieldType>
                         label="Username"
