@@ -68,3 +68,11 @@ export function GET_USER_PROFILE(userId: string) {
         },
     });
 }
+
+export function PUT_USER_PROFILE(userId: string, body: any) {
+    return api.put(`/tags/users/profile/${userId}`, body, {
+        headers: {
+            Authorization: 'Bearer ' + token,
+        },
+    });
+}

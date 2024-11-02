@@ -1,6 +1,12 @@
 import { Button, Form, FormProps, Input } from 'antd';
 import UploadImage from '../../components/uploadImage/UploadImage';
 import { useState } from 'react';
+import { PUT_USER_PROFILE } from '../../services/api';
+
+type FieldType = {
+    name?: string;
+    bio?: string;
+};
 
 const EditProfile = () => {
 
@@ -8,14 +14,21 @@ const EditProfile = () => {
 
     const [form] = Form.useForm();
 
-    type FieldType = {
-        username?: string;
-        password?: string;
-        remember?: string;
-    };
+    const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
 
-    const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-        console.log('Success:', values);
+        const profileData = {
+            name: values.name,
+            bio: values.bio,
+            profilePicture: imageUrl
+        };
+
+        const userId = localStorage.getItem('user');
+
+        try {
+            const response = await PUT_USER_PROFILE(userId as string, profileData);
+        } catch (error) {
+
+        }
     };
 
     const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
@@ -25,9 +38,7 @@ const EditProfile = () => {
     return (
         <div>
             <Form
-                name="basic"
-                wrapperCol={{ span: 16 }}
-                style={{ maxWidth: 600 }}
+                name="edit-profile-form"
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
@@ -36,19 +47,19 @@ const EditProfile = () => {
             >
                 <UploadImage imageUrl={imageUrl} setImageUrl={setImageUrl} />
                 <Form.Item<FieldType>
-                    label="Username"
-                    name="username"
-                    rules={[{ required: true, message: 'Please input your username!' }]}
+                    label="Nome"
+                    name="name"
+                    rules={[{ required: true, message: 'Insira seu nome!' }]}
                 >
                     <Input />
                 </Form.Item>
 
                 <Form.Item<FieldType>
-                    label="Password"
-                    name="password"
-                    rules={[{ required: true, message: 'Please input your password!' }]}
+                    label="Biografia"
+                    name="bio"
+                    rules={[{ required: true, message: 'Insira uma biografia!' }]}
                 >
-                    <Input.Password />
+                    <Input />
                 </Form.Item>
 
                 <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
