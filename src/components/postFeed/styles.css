@@ -5,10 +5,11 @@
     border-bottom: 0.5px solid #370759;
 }
 
-.card-post-feed span {
+.card-post-feed > span {
     display: flex;
     align-items: center;
     gap: 9px;
+    width: 85%;
 }
 
 .card-post-feed h4 {
@@ -33,4 +34,12 @@
 .post-actions > div {
     padding: 5px 0;
     cursor: pointer;
+}
+
+.author-image {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    overflow: hidden;
 }

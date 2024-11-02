@@ -6,6 +6,7 @@ import Heart from '../../icons/Heart';
 import Comment from '../../icons/Comment';
 import CommentsModal from './CommentsModal';
 import { PostAttributes } from '../IPostFeed';
+import PostAuthor from './PostAuthor';
 
 interface IPage {
     infinite: boolean;
@@ -61,13 +62,7 @@ const Page = ({
                 return (
                     <>
                         <div key={post.id} className='card-post-feed'>
-                            <span>
-                                <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
-                                <div>
-                                    <h4>{user.name}</h4>
-                                    <span>Há 3 horas</span>
-                                </div>
-                            </span>
+                            <PostAuthor user={user} />
                             <p>{post.content}</p>
                             {post.imageData && (
                                 <img

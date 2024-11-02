@@ -11,3 +11,7 @@ type User = {
     name: string;
     profilePicture: any;
 }
+
+export interface IPostAuthor {
+    user: User;
+}
