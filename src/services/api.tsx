@@ -60,3 +60,11 @@ export function POSTS_GET(pages: number, items: number) {
         },
     });
 }
+
+export function GET_USER_PROFILE(userId: string) {
+    return api.get(`/tags/users/profile/${userId}`, {
+        headers: {
+            Authorization: 'Bearer ' + token,
+        },
+    });
+}
