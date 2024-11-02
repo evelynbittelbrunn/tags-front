@@ -1,5 +1,11 @@
 .floating-button-group-container {
     position: fixed; 
-    top: 0; 
+    bottom: 0; 
     left: calc(50vw + 225px);
+    min-height: 100px;
+    height: 250px;
+}
+
+.floating-button-group-container > div {
+    height: 250px !important;
 }
