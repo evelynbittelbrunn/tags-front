@@ -58,8 +58,6 @@ const NewPostModal = ({
     };
 
     const onFinish: FormProps<FieldType>['onFinish'] = async (values: any) => {
-        console.log(newImage)
-        console.log('Success:', values);
 
         const userId = localStorage.getItem('user');
 

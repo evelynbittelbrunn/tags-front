@@ -60,7 +60,7 @@ const Page = ({
 
                 return (
                     <>
-                        <div className='card-post-feed'>
+                        <div key={post.id} className='card-post-feed'>
                             <span>
                                 <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
                                 <div>
