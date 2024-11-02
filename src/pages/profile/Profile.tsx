@@ -1,26 +1,27 @@
-import { useEffect } from 'react';
-import Info from './components/Info';
-import './styles.css';
+import { useEffect, useState } from 'react';
 import { GET_USER_PROFILE } from '../../services/api';
+import { ProfileData } from '../../components/profileInfo/IProfileInfo';
+import ProfileInfo from '../../components/profileInfo/ProfileInfo';
 
 const Profile = () => {
 
-    useEffect(() => {
+    const [profileData, setProfileData] = useState<ProfileData>({} as ProfileData);
 
+    useEffect(() => {
         fetchUserProfile();
     }, []);
 
     async function fetchUserProfile() {
         const userId = localStorage.getItem('user');
 
-        const response = await GET_USER_PROFILE(userId as string);
+        const { data } = await GET_USER_PROFILE(userId as string);
 
-        console.log(response);
+        setProfileData(data);
     }
 
     return (
         <div>
-            <Info />
+            <ProfileInfo profileData={profileData} />
         </div>
     )
 }
