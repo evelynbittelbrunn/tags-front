@@ -1,6 +1,12 @@
 import { Button, Form, FormProps, Input } from 'antd';
+import UploadImage from '../../components/uploadImage/UploadImage';
+import { useState } from 'react';
 
 const EditProfile = () => {
+
+    const [imageUrl, setImageUrl] = useState<string>("");
+
+    const [form] = Form.useForm();
 
     type FieldType = {
         username?: string;
@@ -26,7 +32,9 @@ const EditProfile = () => {
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
+                form={form}
             >
+                <UploadImage imageUrl={imageUrl} setImageUrl={setImageUrl} />
                 <Form.Item<FieldType>
                     label="Username"
                     name="username"
