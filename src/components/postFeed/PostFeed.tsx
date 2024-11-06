@@ -1,8 +1,14 @@
 import './styles.css';
 import { useEffect, useState } from 'react';
 import Page from './components/Page';
+import { IPostFeed } from './IPostFeed';
 
-export default function PostFeed() {
+export default function PostFeed({
+    isProfileFeed,
+    getPosts
+}: IPostFeed) {
+
+    console.log(getPosts)
 
     const [pages, setPages] = useState<number[]>([1]);
     const [infinite, setInfinite] = useState(true);
@@ -45,6 +51,8 @@ export default function PostFeed() {
                     setInfinite={setInfinite}
                     isLoadingRequest={isLoadingRequest}
                     setIsLoadingRequest={setIsLoadingRequest}
+                    isProfileFeed={isProfileFeed}
+                    getPosts={getPosts}
                 />
             ))}
         </>
