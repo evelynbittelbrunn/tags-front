@@ -1,14 +1,18 @@
 .profile-container {
     display: grid;
-    grid-template-columns: 110px 1fr 40px;
-    align-items: center;
+    grid-template-columns: 110px 1fr;
+    /* align-items: center; */
     gap: 30px;
     padding: 15px 0;
     /* border: 1px solid red; */
 }
 
+.profile-grid-current-user {
+    grid-template-columns: 110px 1fr 40px !important;
+}
+
 .profile-content > h3 {
-    font-size: 25px;
+    font-size: 23px;
 }
 
 .profile-content > span {

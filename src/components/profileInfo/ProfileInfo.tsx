@@ -7,13 +7,13 @@ import Send from '../icons/Send';
 import Edit from '../icons/Edit';
 import { IProfileInfo } from './IProfileInfo';
 
-const ProfileInfo = ({ profileData }: IProfileInfo) => {
+const ProfileInfo = ({ profileData, isCurrentUser }: IProfileInfo) => {
 
     const { name, bio, profilePicture } = profileData;
 
     return (
-        <div className='profile-container'>
-            {profilePicture != ""
+        <div className={`profile-container ${isCurrentUser && 'profile-grid-current-user'}`}>
+            {(profilePicture != "" && profilePicture !== null)
                 ? <img src={`data:image/jpeg;base64,${profilePicture}`} alt="Foto de Perfil" className="profile-image"></img>
                 : <Avatar size={115} style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
             }
@@ -29,14 +29,18 @@ const ProfileInfo = ({ profileData }: IProfileInfo) => {
                         <span style={{ borderRadius: "15px", backgroundColor: "#267409", padding: "2px 12px" }}>Divertida</span>
                     </div>
                 </div> */}
-                <div className='profile-buttons'>
-                    <Button type="primary"><Add />Seguir</Button>
-                    <Button type="primary" disabled><Send />Conversar</Button>
-                </div>
+                {!isCurrentUser &&
+                    <div className='profile-buttons'>
+                        <Button type="primary"><Add />Seguir</Button>
+                        <Button type="primary" disabled><Send />Conversar</Button>
+                    </div>
+                }
             </div>
-            <span className='button-settings'>
-                <Link to="/editar-perfil"><Edit /></Link>
-            </span>
+            {isCurrentUser &&
+                <span className='button-settings'>
+                    <Link to="/editar-perfil"><Edit /></Link>
+                </span>
+            }
         </div>
     )
 }

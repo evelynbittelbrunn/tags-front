@@ -15,3 +15,8 @@ type User = {
 export interface IPostAuthor {
     user: User;
 }
+
+export interface IPostFeed {
+    isProfileFeed: boolean;
+    getPosts?: any
+}

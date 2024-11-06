@@ -54,7 +54,15 @@ export function POST_TAGS(body: any) {
 }
 
 export function POSTS_GET(pages: number, items: number) {
-    return api.get(`/tags/posts?pagination=${pages}&items=${items}`, {
+    return api.get(`/tags/posts/find-all?pagination=${pages}&items=${items}`, {
+        headers: {
+            Authorization: 'Bearer ' + token,
+        },
+    });
+}
+
+export function POSTS_BY_USER_GET(pages: number, items: number, userId: string) {
+    return api.get(`/tags/posts/${userId}?pagination=${pages}&items=${items}`, {
         headers: {
             Authorization: 'Bearer ' + token,
         },

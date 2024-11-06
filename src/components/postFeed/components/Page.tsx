@@ -12,8 +12,10 @@ interface IPage {
     infinite: boolean;
     page: number;
     setInfinite: (b: boolean) => void;
-    isLoadingRequest: any;
-    setIsLoadingRequest: any
+    isLoadingRequest: boolean;
+    setIsLoadingRequest: (b: boolean) => void;
+    isProfileFeed: boolean;
+    getPosts: any
 }
 
 const Page = ({
@@ -21,7 +23,9 @@ const Page = ({
     page,
     setInfinite,
     isLoadingRequest,
-    setIsLoadingRequest
+    setIsLoadingRequest,
+    isProfileFeed,
+    getPosts
 }: IPage) => {
 
     const [openCommentsModal, setOpenCommentsModal] = useState<boolean>(false);
@@ -39,7 +43,7 @@ const Page = ({
 
         const total = 6;
 
-        const response = await POSTS_GET(page, total);
+        const response = isProfileFeed ? await getPosts(page, total) : await POSTS_GET(page, total);
 
         const { data, status } = response;
 

@@ -26,7 +26,7 @@ function App() {
                             <Routes>
                                 <Route path="/" element={<Feed />} />
                                 <Route path="/login/*" element={<AuthRoutes />} />
-                                <Route path="/perfil" element={<Profile />} />
+                                <Route path="/perfil/:id?" element={<Profile />} />
                                 <Route path='/editar-perfil' element={<EditProfile />} />
                             </Routes>
                         </div>

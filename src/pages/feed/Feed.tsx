@@ -3,7 +3,7 @@ import PostFeed from "../../components/postFeed/PostFeed";
 export default function Feed() {
     return (
         <div>
-            <PostFeed />
+            <PostFeed isProfileFeed={false} />
         </div>
     )
 }

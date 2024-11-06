@@ -6,4 +6,5 @@ export type ProfileData = {
 
 export interface IProfileInfo {
     profileData: ProfileData;
+    isCurrentUser: boolean;
 }
