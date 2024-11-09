@@ -65,10 +65,11 @@ const ProfileInfo = ({ profileData, isCurrentUser, otherUserId }: IProfileInfo) 
                             type="primary"
                             onClick={handleFollowUser}
                             loading={isLoadingButton}
+                            className={isFollowing ? "following-button" : ""}
                         >
                             <Add />{isFollowing ? "Seguindo" : "Seguir"}
                         </Button>
-                        <Button type="primary" disabled><Send />Conversar</Button>
+                        <Button type="primary" disabled className='disabled-button'><Send />Conversar</Button>
                     </div>
                 }
             </div>

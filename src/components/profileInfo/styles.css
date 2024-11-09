@@ -57,3 +57,13 @@
     object-fit: cover;
     overflow: hidden;
 }
+
+.following-button {
+    background-color: #3D444D !important;
+}
+
+.disabled-button {
+    background-color: #3D444D !important;
+    color: #fff !important;
+    border: none !important;
+}
