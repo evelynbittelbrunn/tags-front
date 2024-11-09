@@ -6,10 +6,43 @@ import Add from '../icons/Add';
 import Send from '../icons/Send';
 import Edit from '../icons/Edit';
 import { IProfileInfo } from './IProfileInfo';
+import { POST_FOLLOW } from '../../services/api';
+import { useEffect, useState } from 'react';
 
-const ProfileInfo = ({ profileData, isCurrentUser }: IProfileInfo) => {
+const ProfileInfo = ({ profileData, isCurrentUser, otherUserId }: IProfileInfo) => {
 
-    const { name, bio, profilePicture } = profileData;
+    const { name, bio, profilePicture, following } = profileData;
+
+    const [isLoadingButton, setIsLoadingButton] = useState<boolean>(false);
+    const [isFollowing, setIsFollowing] = useState<boolean>(false);
+
+
+    console.log(isFollowing)
+
+    const handleFollowUser = async () => {
+        setIsLoadingButton(true);
+        try {
+
+            const currentUser = localStorage.getItem("user");
+
+            const response = await POST_FOLLOW(currentUser as string, otherUserId as string);
+
+            if (response.status == 200) {
+                setIsFollowing(prev => !prev);
+            } else {
+                const error = await response.statusText;
+                console.error("Erro:", error);
+            }
+        } catch (error) {
+            console.error("Erro na requisição:", error);
+        }
+        setIsLoadingButton(false)
+    };
+
+    useEffect(() => {
+        if (following === undefined) return;
+        setIsFollowing(following);
+    }, [following]);
 
     return (
         <div className={`profile-container ${isCurrentUser && 'profile-grid-current-user'}`}>
@@ -31,7 +64,13 @@ const ProfileInfo = ({ profileData, isCurrentUser }: IProfileInfo) => {
                 </div> */}
                 {!isCurrentUser &&
                     <div className='profile-buttons'>
-                        <Button type="primary"><Add />Seguir</Button>
+                        <Button
+                            type="primary"
+                            onClick={handleFollowUser}
+                            loading={isLoadingButton}
+                        >
+                            <Add />{isFollowing ? "Seguindo" : "Seguir"}
+                        </Button>
                         <Button type="primary" disabled><Send />Conversar</Button>
                     </div>
                 }
