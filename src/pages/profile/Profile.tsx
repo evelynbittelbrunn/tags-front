@@ -21,7 +21,7 @@ const Profile = () => {
 
         const userId = id == undefined ? currentUser : id;
 
-        const { data } = await GET_USER_PROFILE(userId as string);
+        const { data } = await GET_USER_PROFILE(userId as string, currentUser as string);
 
         setProfileData(data);
     }
@@ -40,6 +40,7 @@ const Profile = () => {
             <ProfileInfo
                 profileData={profileData}
                 isCurrentUser={(id == undefined || id === currentUser) ? true : false}
+                otherUserId={id}
             />
             <PostFeed isProfileFeed={true} getPosts={getPosts} />
         </div>

@@ -69,8 +69,8 @@ export function POSTS_BY_USER_GET(pages: number, items: number, userId: string) 
     });
 }
 
-export function GET_USER_PROFILE(userId: string) {
-    return api.get(`/tags/users/profile/${userId}`, {
+export function GET_USER_PROFILE(userId: string, currentUserId: string) {
+    return api.get(`/tags/users/profile/${userId}?currentUserId=${currentUserId}`, {
         headers: {
             Authorization: 'Bearer ' + token,
         },
@@ -79,6 +79,14 @@ export function GET_USER_PROFILE(userId: string) {
 
 export function PUT_USER_PROFILE(userId: string, body: any) {
     return api.put(`/tags/users/profile/${userId}`, body, {
+        headers: {
+            Authorization: 'Bearer ' + token,
+        },
+    });
+}
+
+export function POST_FOLLOW(followerId: string, followedId: string) {
+    return api.post(`/tags/follow?followerId=${followerId}&followedId=${followedId}`, null, {
         headers: {
             Authorization: 'Bearer ' + token,
         },

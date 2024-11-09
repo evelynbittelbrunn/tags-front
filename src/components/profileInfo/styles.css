@@ -36,6 +36,10 @@
     margin-top: 15px;
 }
 
+.profile-buttons > button {
+    width: 115px;
+}
+
 .button-settings {
     width: 30px;
     align-self: baseline;
