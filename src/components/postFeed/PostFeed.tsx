@@ -8,8 +8,6 @@ export default function PostFeed({
     getPosts
 }: IPostFeed) {
 
-    console.log(getPosts)
-
     const [pages, setPages] = useState<number[]>([1]);
     const [infinite, setInfinite] = useState(true);
     const [isLoadingRequest, setIsLoadingRequest] = useState<boolean>(false);

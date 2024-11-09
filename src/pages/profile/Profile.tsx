@@ -42,7 +42,7 @@ const Profile = () => {
                 isCurrentUser={(id == undefined || id === currentUser) ? true : false}
                 otherUserId={id}
             />
-            <PostFeed isProfileFeed={true} getPosts={getPosts} />
+            <PostFeed key={id == undefined ? currentUser : id} isProfileFeed={true} getPosts={getPosts} />
         </div>
     )
 }

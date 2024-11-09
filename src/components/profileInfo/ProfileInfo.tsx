@@ -16,9 +16,6 @@ const ProfileInfo = ({ profileData, isCurrentUser, otherUserId }: IProfileInfo) 
     const [isLoadingButton, setIsLoadingButton] = useState<boolean>(false);
     const [isFollowing, setIsFollowing] = useState<boolean>(false);
 
-
-    console.log(isFollowing)
-
     const handleFollowUser = async () => {
         setIsLoadingButton(true);
         try {
