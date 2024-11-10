@@ -2,11 +2,11 @@ import { LoadingOutlined, UserOutlined } from '@ant-design/icons';
 import { Avatar, Spin } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { POSTS_GET } from '../../../services/api';
-import Heart from '../../icons/Heart';
 import Comment from '../../icons/Comment';
 import CommentsModal from './CommentsModal';
 import { PostAttributes } from '../IPostFeed';
 import PostAuthor from './PostAuthor';
+import Like from './Like';
 
 interface IPage {
     infinite: boolean;
@@ -32,6 +32,8 @@ const Page = ({
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState<boolean>(false);
 
+    const currentUser = localStorage.getItem('user');
+
     useEffect(() => {
         if (!infinite || isLoadingRequest) return;
         setLoading(true)
@@ -43,7 +45,7 @@ const Page = ({
 
         const total = 6;
 
-        const response = isProfileFeed ? await getPosts(page, total) : await POSTS_GET(page, total);
+        const response = isProfileFeed ? await getPosts(page, total) : await POSTS_GET(page, total, currentUser as string);
 
         const { data, status } = response;
 
@@ -76,7 +78,11 @@ const Page = ({
                                 />
                             )}
                             <div className='post-actions'>
-                                <Heart />
+                                <Like
+                                    isLiked={post.isLiked}
+                                    currentUserId={currentUser as string}
+                                    postId={post.id}
+                                />
                                 <Comment setOpen={setOpenCommentsModal} />
                             </div>
                         </div>

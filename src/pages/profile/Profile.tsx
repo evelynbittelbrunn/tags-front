@@ -30,7 +30,7 @@ const Profile = () => {
 
         const userId = id == undefined ? currentUser : id;
 
-        const response = await POSTS_BY_USER_GET(page, total, userId as string);
+        const response = await POSTS_BY_USER_GET(page, total, userId as string, currentUser as string);
 
         return response;
     }

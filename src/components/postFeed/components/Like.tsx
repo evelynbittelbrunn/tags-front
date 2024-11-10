@@ -1,5 +1,7 @@
 import { useCallback, useState } from 'react'
 import styled, { keyframes, css } from 'styled-components';
+import { POST_LIKE } from '../../../services/api';
+import { ILike } from '../IPostFeed';
 
 const pop = keyframes`
   0% { transform: scale(1); }
@@ -20,12 +22,18 @@ const StyledHeart = styled.svg<{ isLiked: boolean }>`
       `}
 `;
 
-const Heart = () => {
+const Like = ({
+    currentUserId,
+    postId,
+    isLiked
+}: ILike) => {
 
-    const [isLiked, setIsLiked] = useState<boolean>(false);
+    const [isPostLiked, setIsPostLiked] = useState<boolean>(isLiked);
 
-    const toggleLike = useCallback(() => {
-        setIsLiked((prevState) => !prevState);
+    const toggleLike = useCallback(async () => {
+        setIsPostLiked((prevState) => !prevState);
+
+        const response = await POST_LIKE(currentUserId, postId);
     }, []);
 
     return (
@@ -35,8 +43,8 @@ const Heart = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 width={25}
                 viewBox="0 0 24 24"
-                isLiked={isLiked}
-                aria-pressed={isLiked}
+                isLiked={isPostLiked}
+                aria-pressed={isPostLiked}
                 role="button"
             >
                 <path
@@ -49,4 +57,4 @@ const Heart = () => {
     )
 }
 
-export default Heart
+export default Like
