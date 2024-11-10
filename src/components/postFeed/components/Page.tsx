@@ -7,6 +7,7 @@ import CommentsModal from './CommentsModal';
 import { PostAttributes } from '../IPostFeed';
 import PostAuthor from './PostAuthor';
 import Like from './Like';
+import Delete from './Delete';
 
 interface IPage {
     infinite: boolean;
@@ -68,7 +69,10 @@ const Page = ({
                 return (
                     <>
                         <div key={post.id} className='card-post-feed'>
-                            <PostAuthor user={user} />
+                            <div className='post-header'>
+                                <PostAuthor user={user} />
+                                <Delete />
+                            </div>
                             <p>{post.content}</p>
                             {post.imageData && (
                                 <img
