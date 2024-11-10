@@ -53,16 +53,16 @@ export function POST_TAGS(body: any) {
     });
 }
 
-export function POSTS_GET(pages: number, items: number) {
-    return api.get(`/tags/posts/find-all?pagination=${pages}&items=${items}`, {
+export function POSTS_GET(pages: number, items: number, currentUserId: string) {
+    return api.get(`/tags/posts/find-all?pagination=${pages}&items=${items}&currentUserId=${currentUserId}`, {
         headers: {
             Authorization: 'Bearer ' + token,
         },
     });
 }
 
-export function POSTS_BY_USER_GET(pages: number, items: number, userId: string) {
-    return api.get(`/tags/posts/${userId}?pagination=${pages}&items=${items}`, {
+export function POSTS_BY_USER_GET(pages: number, items: number, userId: string, currentUserId: string) {
+    return api.get(`/tags/posts/${userId}?pagination=${pages}&items=${items}&currentUserId=${currentUserId}`, {
         headers: {
             Authorization: 'Bearer ' + token,
         },
@@ -87,6 +87,14 @@ export function PUT_USER_PROFILE(userId: string, body: any) {
 
 export function POST_FOLLOW(followerId: string, followedId: string) {
     return api.post(`/tags/follow?followerId=${followerId}&followedId=${followedId}`, null, {
+        headers: {
+            Authorization: 'Bearer ' + token,
+        },
+    });
+}
+
+export function POST_LIKE(currentUserId: string, postId: string) {
+    return api.post(`/tags/like?userId=${currentUserId}&postId=${postId}`, null, {
         headers: {
             Authorization: 'Bearer ' + token,
         },

@@ -4,6 +4,7 @@ export type PostAttributes = {
     imageData: string;
     createdAt: any;
     user: User;
+    isLiked: boolean;
 }
 
 type User = {
@@ -19,4 +20,14 @@ export interface IPostAuthor {
 export interface IPostFeed {
     isProfileFeed: boolean;
     getPosts?: any
+}
+
+export interface IPostAuthor {
+    user: User;
+}
+
+export interface ILike {
+    currentUserId: string;
+    postId: string;
+    isLiked: boolean;
 }
