@@ -5,7 +5,13 @@
     border-bottom: 0.5px solid #370759;
 }
 
-.card-post-feed > span {
+.post-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.post-header > span {
     display: flex;
     align-items: center;
     gap: 9px;
