@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { GET_USER_PROFILE, POSTS_BY_USER_GET, POSTS_GET } from '../../services/api';
+import { GET_USER_PROFILE, POSTS_BY_USER_GET } from '../../services/api';
 import { ProfileData } from '../../components/profileInfo/IProfileInfo';
 import ProfileInfo from '../../components/profileInfo/ProfileInfo';
 import { useParams } from 'react-router-dom';
