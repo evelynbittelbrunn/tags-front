@@ -1,6 +1,6 @@
 export type FieldType = {
     postContent?: string;
-    tags?: [];
+    tags?: [string];
 };
 
 export type Image = {

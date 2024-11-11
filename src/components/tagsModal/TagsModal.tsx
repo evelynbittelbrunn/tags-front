@@ -62,8 +62,6 @@ const TagsModal = ({
 
     const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
 
-        console.log(values);
-
         try {
 
             const categoriesToSave = {
@@ -72,7 +70,6 @@ const TagsModal = ({
             };
 
             const { data } = await POST_TAGS(categoriesToSave);
-            // setTagsList(newList);
 
         } catch (error) {
 

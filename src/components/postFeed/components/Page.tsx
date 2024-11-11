@@ -1,5 +1,5 @@
-import { LoadingOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
+import { Spin } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { POSTS_GET } from '../../../services/api';
 import Comment from '../../icons/Comment';
