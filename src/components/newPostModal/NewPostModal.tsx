@@ -1,25 +1,10 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { Form, FormProps, message, Modal, Select, SelectProps, Upload } from 'antd'
 import TextArea from 'antd/es/input/TextArea';
-import { useState } from 'react'
-import { NEW_POST } from '../../services/api';
+import { useEffect, useState } from 'react'
+import { GET_TAGS, NEW_POST } from '../../services/api';
 import "./styles.css"
-
-type FieldType = {
-    username?: string;
-    password?: string;
-    remember?: string;
-};
-
-type Image = {
-    photo: any;
-    imageBase64: string;
-}
-
-interface INewPostModal {
-    openNewPostModal: boolean;
-    setOpenNewPostModal: (b: boolean) => void;
-}
+import { FieldType, Image, INewPostModal } from './INewPostModal';
 
 const NewPostModal = ({
     openNewPostModal,
@@ -27,6 +12,8 @@ const NewPostModal = ({
 }: INewPostModal) => {
 
     const [newImage, setNewImage] = useState<Image>({} as Image);
+    const [tagsList, setTagsList] = useState([]);
+    const userId = localStorage.getItem('user');
     const [form] = Form.useForm();
 
     const options: SelectProps['options'] = [];
@@ -42,11 +29,17 @@ const NewPostModal = ({
         setOpenNewPostModal(true);
     };
 
-    const handleOk = () => {
-        setOpenNewPostModal(false);
+    const handleOk = async () => {
+        try {
+            await form.validateFields();
+            setOpenNewPostModal(false);
+        } catch (error) {
+            console.error("Erro na validação dos campos:", error);
+        }
     };
 
     const handleCancel = () => {
+        form.resetFields();
         setOpenNewPostModal(false);
     };
 
@@ -59,12 +52,15 @@ const NewPostModal = ({
 
     const onFinish: FormProps<FieldType>['onFinish'] = async (values: any) => {
 
+        // console.log(values.selectedTags);
+
         const userId = localStorage.getItem('user');
 
         const newPost = {
             userId: userId,
             content: values.postContent,
-            imageUrl: newImage.imageBase64
+            imageUrl: newImage.imageBase64,
+            categoryIds: values.selectedTags
         };
 
         try {
@@ -72,17 +68,40 @@ const NewPostModal = ({
             // setData(response.data);
             // setLogin(true);
         } catch (error) {
+            console.log(error);
+        }
+
+        form.resetFields();
+    };
+
+    useEffect(() => {
+        if (!openNewPostModal || userId == null) return;
+        loadTags();
+    }, [openNewPostModal]);
+
+    async function loadTags() {
+
+        try {
+
+            const { data } = await GET_TAGS(userId as string);
+
+            const newList = data.map((tag: any) => {
+                return {
+                    value: tag.id,
+                    label: tag.description
+                }
+            });
+
+            form.setFieldsValue({
+                tags: newList.filter((item: any) => item.selected)
+            });
+
+            setTagsList(newList);
+
+        } catch (error) {
 
         }
-    };
-
-    const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-    };
-
-    const handleChange = (value: string) => {
-        console.log(`selected ${value}`);
-    };
+    }
 
     return (
         <Modal
@@ -97,7 +116,6 @@ const NewPostModal = ({
                 name="new-post"
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
                 autoComplete="off"
             >
                 <Form.Item
@@ -152,17 +170,24 @@ const NewPostModal = ({
                         </button>
                     </Upload>
                 </Form.Item>
-                <Form.Item style={{ height: "98px" }} name="postContent" >
+                <Form.Item
+                    style={{ height: "98px" }}
+                    name="postContent"
+                    rules={[{ required: true, message: 'Escreva uma legenda legal para o post :)' }]}
+                >
                     <TextArea placeholder='Compartilhe suas ideias, fotos ou histórias...' rows={4} />
                 </Form.Item>
 
-                <Form.Item style={{ height: "50px" }} name="selectedTags">
+                <Form.Item
+                    style={{ height: "50px" }}
+                    name="selectedTags"
+                    rules={[{ required: true, message: 'Selecione as tags que combinam com esse post', type: 'array' }]}
+                >
                     <Select
-                        mode="tags"
+                        mode="multiple"
                         style={{ width: '100%' }}
                         placeholder="Defina as tags da sua postagem"
-                        onChange={handleChange}
-                        options={options}
+                        options={tagsList}
                     />
                 </Form.Item>
             </Form>
