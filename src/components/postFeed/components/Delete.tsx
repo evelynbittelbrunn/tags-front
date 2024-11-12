@@ -1,12 +1,17 @@
 import { Button, Popconfirm, PopconfirmProps } from 'antd'
 import Remove from '../../icons/Remove';
-import { IDelete } from '../IPostFeed';
+import { IDelete, PostAttributes } from '../IPostFeed';
 import { DELETE_POST } from '../../../services/api';
 
-const Delete = ({ postId }: IDelete) => {
+const Delete = ({ postId, setPosts }: IDelete) => {
 
     const confirm: PopconfirmProps['onConfirm'] = async (e) => {
         const response = await DELETE_POST(postId);
+        console.log(response);
+        if (response.status === 200) {
+            // @ts-ignore
+            setPosts((prev): PostAttributes[] => prev.filter((post) => post.id !== postId));
+        }
     };
 
     return (

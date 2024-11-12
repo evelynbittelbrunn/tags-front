@@ -30,7 +30,7 @@ const Page = ({
 }: IPage) => {
 
     const [openCommentsModal, setOpenCommentsModal] = useState<boolean>(false);
-    const [posts, setPosts] = useState([]);
+    const [posts, setPosts] = useState<PostAttributes[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
     const currentUser = localStorage.getItem('user');
@@ -72,7 +72,7 @@ const Page = ({
                             <div className='post-header'>
                                 <PostAuthor user={user} />
                                 {(user.id === currentUser) &&
-                                    <Delete postId={post.id} />
+                                    <Delete postId={post.id} setPosts={setPosts} />
                                 }
                             </div>
                             <p>{post.content}</p>
