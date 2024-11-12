@@ -100,3 +100,11 @@ export function POST_LIKE(currentUserId: string, postId: string) {
         },
     });
 }
+
+export function DELETE_POST(postId: string) {
+    return api.delete(`/tags/posts/delete-post/${postId}`, {
+        headers: {
+            Authorization: 'Bearer ' + token,
+        },
+    });
+}

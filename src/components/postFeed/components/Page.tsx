@@ -71,7 +71,9 @@ const Page = ({
                         <div key={post.id} className='card-post-feed'>
                             <div className='post-header'>
                                 <PostAuthor user={user} />
-                                <Delete />
+                                {(user.id === currentUser) &&
+                                    <Delete postId={post.id} />
+                                }
                             </div>
                             <p>{post.content}</p>
                             {post.imageData && (
