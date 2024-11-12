@@ -51,9 +51,6 @@ const NewPostModal = ({
     };
 
     const onFinish: FormProps<FieldType>['onFinish'] = async (values: any) => {
-
-        // console.log(values.selectedTags);
-
         const userId = localStorage.getItem('user');
 
         const newPost = {
@@ -65,8 +62,6 @@ const NewPostModal = ({
 
         try {
             const response = await NEW_POST(newPost);
-            // setData(response.data);
-            // setLogin(true);
         } catch (error) {
             console.log(error);
         }
