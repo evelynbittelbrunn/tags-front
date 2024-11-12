@@ -31,3 +31,7 @@ export interface ILike {
     postId: string;
     isLiked: boolean;
 }
+
+export interface IDelete {
+    postId: string;
+}
