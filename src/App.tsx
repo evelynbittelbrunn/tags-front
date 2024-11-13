@@ -10,6 +10,7 @@ import FloatButtonMenu from './components/floatButtonMenu/FloatButtonMenu';
 import NewPostModal from './components/newPostModal/NewPostModal';
 import { useState } from 'react';
 import TagsModal from './components/tagsModal/TagsModal';
+import ProtectedRoute from './routes/ProtectedRoute';
 
 function App() {
 
@@ -24,10 +25,10 @@ function App() {
                         <NavBar />
                         <div className='main-container'>
                             <Routes>
-                                <Route path="/" element={<Feed />} />
+                                <Route path="/" element={<ProtectedRoute><Feed /></ProtectedRoute>} />
                                 <Route path="/login/*" element={<AuthRoutes />} />
-                                <Route path="/perfil/:id?" element={<Profile />} />
-                                <Route path='/editar-perfil' element={<EditProfile />} />
+                                <Route path="/perfil/:id?" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+                                <Route path='/editar-perfil' element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
                             </Routes>
                         </div>
                         <FloatButtonMenu
