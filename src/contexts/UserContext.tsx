@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { LOGIN_POST, TOKEN_VALIDATE_POST, USER_GET } from '../services/api';
 
-type UserContextType = {
+export type UserContextType = {
     userLogin: (email: string, password: string) => Promise<void>;
     userLogout: () => void;
     data: any;
@@ -11,7 +11,7 @@ type UserContextType = {
     login: boolean | null;
 };
 
-export const UserContext = createContext<UserContextType | null>(null);
+export const UserContext = createContext<UserContextType>({} as UserContextType);
 
 const UserStorage = ({ children }: any) => {
     const [data, setData] = useState<any>(null);
