@@ -3,12 +3,12 @@ import { UserContext } from "../contexts/UserContext";
 import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }: any) => {
-    const context = useContext(UserContext);
+    const { login } = useContext(UserContext);
 
     // Forma que espera para ver se o usuário realmente está logado
-    if (context?.login === true) {
+    if (login === true) {
         return children;
-    } else if (context?.login === false) {
+    } else if (login === false) {
         return <Navigate to="/login" />;
     } else {
         return <></>;
