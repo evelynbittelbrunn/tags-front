@@ -34,13 +34,14 @@ const Page = ({
     const [loading, setLoading] = useState<boolean>(false);
 
     const currentUser = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
 
     useEffect(() => {
-        if (!infinite || isLoadingRequest) return;
+        if (!infinite || isLoadingRequest || !token) return;
         setLoading(true)
         setIsLoadingRequest(true);
         fetchPhotos();
-    }, [page]);
+    }, [page, token]);
 
     async function fetchPhotos() {
 
