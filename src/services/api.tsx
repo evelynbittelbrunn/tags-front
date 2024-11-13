@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const token = localStorage.getItem('token');
+function getToken() {
+    return localStorage.getItem('token');
+}
 
 const api = axios.create({
     baseURL: 'http://localhost:8080',
@@ -32,7 +34,7 @@ export function USER_GET(token: string) {
 export function NEW_POST(body: any) {
     return api.post('/tags/posts/create', body, {
         headers: {
-            Authorization: 'Bearer ' + token,
+            Authorization: 'Bearer ' + getToken(),
         },
     });
 }
@@ -40,7 +42,7 @@ export function NEW_POST(body: any) {
 export function GET_TAGS(userId: string) {
     return api.get(`/tags/categories/user-categories/${userId}`, {
         headers: {
-            Authorization: 'Bearer ' + token,
+            Authorization: 'Bearer ' + getToken(),
         },
     });
 }
@@ -48,15 +50,15 @@ export function GET_TAGS(userId: string) {
 export function POST_TAGS(body: any) {
     return api.post('/tags/user-categories/save', body, {
         headers: {
-            Authorization: 'Bearer ' + token,
+            Authorization: 'Bearer ' + getToken(),
         },
     });
 }
 
-export function POSTS_GET(pages: number, items: number, currentUserId: string) {
+export async function POSTS_GET(pages: number, items: number, currentUserId: string) {
     return api.get(`/tags/posts/find-all?pagination=${pages}&items=${items}&currentUserId=${currentUserId}`, {
         headers: {
-            Authorization: 'Bearer ' + token,
+            Authorization: 'Bearer ' + getToken(),
         },
     });
 }
@@ -64,7 +66,7 @@ export function POSTS_GET(pages: number, items: number, currentUserId: string) {
 export function POSTS_BY_USER_GET(pages: number, items: number, userId: string, currentUserId: string) {
     return api.get(`/tags/posts/${userId}?pagination=${pages}&items=${items}&currentUserId=${currentUserId}`, {
         headers: {
-            Authorization: 'Bearer ' + token,
+            Authorization: 'Bearer ' + getToken(),
         },
     });
 }
@@ -72,7 +74,7 @@ export function POSTS_BY_USER_GET(pages: number, items: number, userId: string, 
 export function GET_USER_PROFILE(userId: string, currentUserId: string) {
     return api.get(`/tags/users/profile/${userId}?currentUserId=${currentUserId}`, {
         headers: {
-            Authorization: 'Bearer ' + token,
+            Authorization: 'Bearer ' + getToken(),
         },
     });
 }
@@ -80,7 +82,7 @@ export function GET_USER_PROFILE(userId: string, currentUserId: string) {
 export function PUT_USER_PROFILE(userId: string, body: any) {
     return api.put(`/tags/users/profile/${userId}`, body, {
         headers: {
-            Authorization: 'Bearer ' + token,
+            Authorization: 'Bearer ' + getToken(),
         },
     });
 }
@@ -88,7 +90,7 @@ export function PUT_USER_PROFILE(userId: string, body: any) {
 export function POST_FOLLOW(followerId: string, followedId: string) {
     return api.post(`/tags/follow?followerId=${followerId}&followedId=${followedId}`, null, {
         headers: {
-            Authorization: 'Bearer ' + token,
+            Authorization: 'Bearer ' + getToken(),
         },
     });
 }
@@ -96,7 +98,7 @@ export function POST_FOLLOW(followerId: string, followedId: string) {
 export function POST_LIKE(currentUserId: string, postId: string) {
     return api.post(`/tags/like?userId=${currentUserId}&postId=${postId}`, null, {
         headers: {
-            Authorization: 'Bearer ' + token,
+            Authorization: 'Bearer ' + getToken(),
         },
     });
 }
@@ -104,7 +106,7 @@ export function POST_LIKE(currentUserId: string, postId: string) {
 export function DELETE_POST(postId: string) {
     return api.delete(`/tags/posts/delete-post/${postId}`, {
         headers: {
-            Authorization: 'Bearer ' + token,
+            Authorization: 'Bearer ' + getToken(),
         },
     });
 }
