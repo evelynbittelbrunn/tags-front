@@ -29,7 +29,7 @@ const UserStorage = ({ children }: any) => {
                     setError(null);
                     setLoading(true);
 
-                    const response = await TOKEN_VALIDATE_POST(token);
+                    const response = await USER_GET(token);
                     if (!response.status || response.status !== 200) {
                         throw new Error('Token inválido!');
                     }
