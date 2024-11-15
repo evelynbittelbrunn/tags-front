@@ -2,12 +2,12 @@ import { UserOutlined } from '@ant-design/icons'
 import { Avatar, Button } from 'antd'
 import { Link } from 'react-router-dom';
 import './styles.css';
-import Add from '../icons/Add';
-import Send from '../icons/Send';
-import Edit from '../icons/Edit';
 import { IProfileInfo } from './IProfileInfo';
 import { POST_FOLLOW } from '../../services/api';
 import { useEffect, useState } from 'react';
+import AddIcon from '../icons/AddIcon';
+import EditIcon from '../icons/EditIcon';
+import SendIcon from '../icons/SendIcon';
 
 const ProfileInfo = ({ profileData, isCurrentUser, otherUserId }: IProfileInfo) => {
 
@@ -67,15 +67,15 @@ const ProfileInfo = ({ profileData, isCurrentUser, otherUserId }: IProfileInfo) 
                             loading={isLoadingButton}
                             className={isFollowing ? "following-button" : ""}
                         >
-                            <Add />{isFollowing ? "Seguindo" : "Seguir"}
+                            <AddIcon />{isFollowing ? "Seguindo" : "Seguir"}
                         </Button>
-                        <Button type="primary" disabled className='disabled-button'><Send />Conversar</Button>
+                        <Button type="primary" disabled className='disabled-button'><SendIcon />Conversar</Button>
                     </div>
                 }
             </div>
             {isCurrentUser &&
                 <span className='button-settings'>
-                    <Link to="/editar-perfil"><Edit /></Link>
+                    <Link to="/editar-perfil"><EditIcon /></Link>
                 </span>
             }
         </div>
