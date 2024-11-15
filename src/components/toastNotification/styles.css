@@ -1,0 +1,38 @@
+.footer-notification {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-50%);
+    visibility: hidden;
+    padding: 0 20px;
+    color: white;
+    font-size: 16px;
+    opacity: 0.9;
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    text-align: center;
+    width: 100vw;
+}
+
+.footer-notification.show {
+    visibility: visible;
+    transform: translateY(0); 
+}
+
+.footer-notification.hide {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(100px);
+}
+
+.footer-notification.success {
+    background-color: #28a745;
+}
+
+.footer-notification.error {
+    background-color: #dc3545;
+}
+
+.footer-notification.warning {
+    background-color: #ffc107;
+}
