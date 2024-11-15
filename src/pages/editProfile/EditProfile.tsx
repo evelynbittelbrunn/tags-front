@@ -2,8 +2,8 @@ import { Button, Form, FormProps, Input } from 'antd';
 import UploadImage from '../../components/uploadImage/UploadImage';
 import { useState } from 'react';
 import { PUT_USER_PROFILE } from '../../services/api';
-import Return from '../../components/icons/Return';
 import { Link } from 'react-router-dom';
+import ReturnIcon from '../../components/icons/ReturnIcon';
 
 type FieldType = {
     name?: string;
@@ -39,7 +39,7 @@ const EditProfile = () => {
 
     return (
         <div>
-            <Link to="/perfil"><Return /></Link>
+            <Link to="/perfil"><ReturnIcon /></Link>
             <Form
                 name="edit-profile-form"
                 initialValues={{ remember: true }}

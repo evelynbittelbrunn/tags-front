@@ -2,7 +2,6 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { POSTS_GET } from '../../../services/api';
-import Comment from '../../icons/Comment';
 import CommentsModal from './CommentsModal';
 import { PostAttributes } from '../IPostFeed';
 import PostAuthor from './PostAuthor';
@@ -29,7 +28,6 @@ const Page = ({
     getPosts
 }: IPage) => {
 
-    const [openCommentsModal, setOpenCommentsModal] = useState<boolean>(false);
     const [posts, setPosts] = useState<PostAttributes[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -90,10 +88,9 @@ const Page = ({
                                     currentUserId={currentUser as string}
                                     postId={post.id}
                                 />
-                                <Comment setOpen={setOpenCommentsModal} />
+                                <CommentsModal />
                             </div>
                         </div>
-                        <CommentsModal open={openCommentsModal} setOpen={setOpenCommentsModal} />
                     </>
                 )
             })}
