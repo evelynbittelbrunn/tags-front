@@ -110,3 +110,11 @@ export function DELETE_POST(postId: string) {
         },
     });
 }
+
+export function POST_COMMENT(body: any) {
+    return api.post(`/tags/comments`, body, {
+        headers: {
+            Authorization: 'Bearer ' + getToken(),
+        },
+    });
+}

@@ -1,25 +1,29 @@
-import { Form, FormProps, Modal } from 'antd'
+import { Avatar, Button, Form, FormProps, Modal, Spin } from 'antd'
 import React, { useState } from 'react'
 import Comment from '../../comment/Comment';
 import TextArea from 'antd/es/input/TextArea';
 import CommentIcon from '../../icons/CommentIcon';
+import SendIcon from '../../icons/SendIcon';
+import { LoadingOutlined, UserOutlined } from '@ant-design/icons';
+import { POST_COMMENT } from '../../../services/api';
 
 interface ICommentModal {
-    open: boolean;
-    setOpen: (b: boolean) => void;
+    postId: string;
+    currentUser: string;
 }
 
 export type FieldType = {
     comment: string;
 };
 
-const CommentsModal = () => {
+const CommentsModal = ({ postId, currentUser }: ICommentModal) => {
 
     const [form] = Form.useForm();
 
+    const [open, setOpen] = useState<boolean>(false);
     const [comments, setComments] = useState();
     const [loading, setLoading] = useState<boolean>(false);
-    const [open, setOpen] = useState<boolean>(false);
+    const [isSavingComment, setIsSavingComment] = useState<boolean>(false);
 
     const showLoading = () => {
         setOpen(true);
@@ -30,29 +34,63 @@ const CommentsModal = () => {
         }, 2000);
     };
 
-    const onFinish: FormProps<FieldType>['onFinish'] = async (values: any) => {
+    const onFinish: FormProps<FieldType>['onFinish'] = async (values: FieldType) => {
+        setIsSavingComment(true);
+        form.resetFields();
+        console.log(values)
 
+        const commentToSave = {
+            userId: currentUser,
+            postId: postId,
+            content: values.comment
+        };
+
+        try {
+            const response = await POST_COMMENT(commentToSave);
+
+            if (response.status === 200) {
+
+            }
+        } catch (error) {
+            console.log(error);
+        }
+
+
+        setIsSavingComment(false);
     };
 
     const footer = (
-        <Form
-            form={form}
-            name="new-post"
-            initialValues={{ remember: true }}
-            onFinish={onFinish}
-            autoComplete="off"
-        >
-            <Form.Item
-                name="comment"
-                rules={[{ required: true, message: 'Escreva uma legenda legal para o post :)' }]}
-            >
-                <TextArea
-                    placeholder='Escreva algo bacana sobre a postagem'
-                    rows={2}
-                    style={{ resize: 'none' }}
-                />
-            </Form.Item>
-        </Form>
+        <Spin indicator={<LoadingOutlined />} spinning={isSavingComment} >
+            <div className='new-comment-container'>
+                <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
+                <Form
+                    form={form}
+                    name="new-post"
+                    initialValues={{ remember: true }}
+                    onFinish={onFinish}
+                    autoComplete="off"
+                >
+                    <div style={{ position: "relative" }}>
+                        <Form.Item
+                            name="comment"
+                            style={{ margin: 0 }}
+                            rules={[{ required: true, message: 'Escreva uma legenda legal para o post :)' }]}
+                        >
+                            <TextArea
+                                placeholder='Escreva algo bacana sobre a postagem'
+                                rows={2}
+                                style={{ resize: 'none', paddingRight: "50px" }}
+                            />
+                        </Form.Item>
+                        <Form.Item className='submit-comment'>
+                            <Button htmlType="submit" type="text" disabled={isSavingComment}>
+                                <SendIcon />
+                            </Button>
+                        </Form.Item>
+                    </div>
+                </Form>
+            </div>
+        </Spin>
     );
 
     return (

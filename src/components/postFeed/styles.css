@@ -49,3 +49,23 @@
     object-fit: cover;
     overflow: hidden;
 }
+
+.new-comment-container {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    gap: 10px;
+    align-items: center;
+}
+
+.submit-comment {
+    display: inline-block;
+    /* width: 40px; */
+    margin: 0;
+    position: absolute;
+    top: 10.59px;
+    right: 17px;
+}
+
+.submit-comment button {
+    padding: 4px 10px;
+}
