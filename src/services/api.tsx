@@ -111,6 +111,14 @@ export function DELETE_POST(postId: string) {
     });
 }
 
+export function GET_COMMENT(postId: string) {
+    return api.get(`/tags/comments/post/${postId}`, {
+        headers: {
+            Authorization: 'Bearer ' + getToken(),
+        },
+    });
+}
+
 export function POST_COMMENT(body: any) {
     return api.post(`/tags/comments`, body, {
         headers: {

@@ -7,6 +7,12 @@ export type PostAttributes = {
     isLiked: boolean;
 }
 
+export type CommentAttributes = {
+    id: string;
+    content: string;
+    user: User;
+}
+
 type User = {
     id: string;
     name: string;

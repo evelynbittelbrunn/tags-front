@@ -50,16 +50,25 @@
     overflow: hidden;
 }
 
+.comment-modal {
+    top: 20px;
+}
+
+.comment-modal .ant-modal-body {
+    height: 63vh;
+    overflow-y: auto;
+}
+
 .new-comment-container {
     display: grid;
     grid-template-columns: 32px 1fr;
     gap: 10px;
     align-items: center;
+    /* 10,59 */
 }
 
 .submit-comment {
     display: inline-block;
-    /* width: 40px; */
     margin: 0;
     position: absolute;
     top: 10.59px;
