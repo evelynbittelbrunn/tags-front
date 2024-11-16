@@ -23,11 +23,11 @@ const Delete = ({ postId, setPosts }: IDelete) => {
     return (
         <div>
             <Popconfirm
-                title="Delete the task"
-                description="Are you sure to delete this task?"
+                title="Excluir postagem 😔"
+                description="Tem certeza de que deseja excluir?"
                 onConfirm={confirm}
-                okText="Yes"
-                cancelText="No"
+                okText="Sim"
+                cancelText="Não"
             >
                 <Button type="text" danger><RemoveIcon /></Button>
             </Popconfirm>

@@ -42,14 +42,6 @@
     cursor: pointer;
 }
 
-.author-image {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-    overflow: hidden;
-}
-
 .comment-modal {
     top: 20px;
 }
@@ -65,6 +57,23 @@
     gap: 10px;
     align-items: center;
     /* 10,59 */
+}
+
+.comment-author-name {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.comment-author-name button {
+    height: 22px;
+    width: 28px;
+    padding: 0;
+    margin-right: 10px;
+} 
+
+.comment-author-name > h4 {
+    width: 85%;
 }
 
 .submit-comment {

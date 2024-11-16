@@ -1,8 +1,8 @@
 import { UserOutlined } from '@ant-design/icons'
 import { Avatar } from 'antd'
-import React from 'react'
 import { IPostAuthor } from '../IPostFeed'
 import { Link } from 'react-router-dom'
+import ProfilePicture from '../../profilePicture/ProfilePicture'
 
 const PostAuthor = ({ user }: IPostAuthor) => {
 
@@ -10,12 +10,12 @@ const PostAuthor = ({ user }: IPostAuthor) => {
 
     return (
         <span>
-            <Link to={`/perfil/${id}`}>
-                {(profilePicture != null && profilePicture != "")
-                    ? <img src={`data:image/jpeg;base64,${profilePicture}`} alt="Foto de Perfil" className="author-image"></img>
-                    : <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
-                }
-            </Link>
+            <ProfilePicture
+                profilePicture={profilePicture}
+                hasLink={true}
+                size={32}
+                authorId={id}
+            />
             <div>
                 <Link to={`/perfil/${id}`}>
                     <h4>{name}</h4>

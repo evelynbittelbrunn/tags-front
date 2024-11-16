@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import AddIcon from '../icons/AddIcon';
 import EditIcon from '../icons/EditIcon';
 import SendIcon from '../icons/SendIcon';
+import ProfilePicture from '../profilePicture/ProfilePicture';
 
 const ProfileInfo = ({ profileData, isCurrentUser, otherUserId }: IProfileInfo) => {
 
@@ -43,10 +44,15 @@ const ProfileInfo = ({ profileData, isCurrentUser, otherUserId }: IProfileInfo) 
 
     return (
         <div className={`profile-container ${isCurrentUser && 'profile-grid-current-user'}`}>
-            {(profilePicture != "" && profilePicture !== null)
+            <ProfilePicture
+                profilePicture={profilePicture}
+                hasLink={false}
+                size={115}
+            />
+            {/* {(profilePicture != "" && profilePicture !== null)
                 ? <img src={`data:image/jpeg;base64,${profilePicture}`} alt="Foto de Perfil" className="profile-image"></img>
                 : <Avatar size={115} style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
-            }
+            } */}
             <div className='profile-content'>
                 <h3>{name}</h3>
                 <span><b>220</b> seguidores</span><span><b>120</b> seguindo</span>

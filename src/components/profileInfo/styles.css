@@ -50,14 +50,6 @@
     cursor: pointer;
 }
 
-.profile-image {
-    width: 115px;
-    height: 115px;
-    border-radius: 50%;
-    object-fit: cover;
-    overflow: hidden;
-}
-
 .following-button {
     background-color: #3D444D !important;
 }
