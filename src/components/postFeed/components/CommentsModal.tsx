@@ -1,11 +1,12 @@
-import { Avatar, Button, Form, FormProps, Modal, Spin } from 'antd'
-import React, { useState } from 'react'
+import { Avatar, Button, Form, FormProps, Modal, Skeleton, Spin } from 'antd'
+import React, { useEffect, useState } from 'react'
 import Comment from '../../comment/Comment';
 import TextArea from 'antd/es/input/TextArea';
 import CommentIcon from '../../icons/CommentIcon';
 import SendIcon from '../../icons/SendIcon';
 import { LoadingOutlined, UserOutlined } from '@ant-design/icons';
-import { POST_COMMENT } from '../../../services/api';
+import { GET_COMMENT, POST_COMMENT } from '../../../services/api';
+import { CommentAttributes } from '../IPostFeed';
 
 interface ICommentModal {
     postId: string;
@@ -18,21 +19,11 @@ export type FieldType = {
 
 const CommentsModal = ({ postId, currentUser }: ICommentModal) => {
 
-    const [form] = Form.useForm();
-
     const [open, setOpen] = useState<boolean>(false);
-    const [comments, setComments] = useState();
+    const [comments, setComments] = useState<CommentAttributes[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [isSavingComment, setIsSavingComment] = useState<boolean>(false);
-
-    const showLoading = () => {
-        setOpen(true);
-        setLoading(true);
-
-        setTimeout(() => {
-            setLoading(false);
-        }, 2000);
-    };
+    const [form] = Form.useForm();
 
     const onFinish: FormProps<FieldType>['onFinish'] = async (values: FieldType) => {
         setIsSavingComment(true);
@@ -47,17 +38,33 @@ const CommentsModal = ({ postId, currentUser }: ICommentModal) => {
 
         try {
             const response = await POST_COMMENT(commentToSave);
-
             if (response.status === 200) {
-
+                setComments(prev => [response.data, ...prev]);
             }
         } catch (error) {
             console.log(error);
         }
 
-
         setIsSavingComment(false);
     };
+
+    useEffect(() => {
+
+        setLoading(true);
+
+        const fetchComments = async () => {
+            try {
+                const { data } = await GET_COMMENT(postId);
+                setComments(data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Erro ao carregar comentários', error);
+            }
+        };
+
+        if (!open) return;
+        fetchComments();
+    }, [open]);
 
     const footer = (
         <Spin indicator={<LoadingOutlined />} spinning={isSavingComment} >
@@ -100,10 +107,22 @@ const CommentsModal = ({ postId, currentUser }: ICommentModal) => {
                 title={<p>Comentários</p>}
                 loading={loading}
                 open={open}
-                onCancel={() => setOpen(false)}
+                onCancel={() => {
+                    setOpen(false);
+                    setComments([]);
+                }}
                 footer={footer}
+                className='comment-modal'
             >
-                <Comment />
+                {comments.map((comment: CommentAttributes) => <Comment comment={comment} />)}
+                {loading &&
+                    <>
+                        <Skeleton loading={loading} active avatar />
+                        <Skeleton loading={loading} active avatar />
+                        <Skeleton loading={loading} active avatar />
+                        <Skeleton loading={loading} active avatar />
+                    </>
+                }
             </Modal>
         </>
     )
