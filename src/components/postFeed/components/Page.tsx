@@ -88,7 +88,7 @@ const Page = ({
                                     currentUserId={currentUser as string}
                                     postId={post.id}
                                 />
-                                <CommentsModal />
+                                <CommentsModal postId={post.id} currentUser={currentUser as string} />
                             </div>
                         </div>
                     </>
