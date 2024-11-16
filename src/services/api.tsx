@@ -126,3 +126,11 @@ export function POST_COMMENT(body: any) {
         },
     });
 }
+
+export function DELETE_COMMENT(commentId: string) {
+    return api.delete(`/tags/comments/${commentId}`, {
+        headers: {
+            Authorization: 'Bearer ' + getToken(),
+        },
+    });
+}

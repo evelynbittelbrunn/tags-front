@@ -72,6 +72,10 @@
     margin-right: 10px;
 } 
 
+.comment-author-name a {
+    color: black;
+}
+
 .comment-author-name > h4 {
     width: 85%;
 }

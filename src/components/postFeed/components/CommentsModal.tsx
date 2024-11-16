@@ -114,7 +114,15 @@ const CommentsModal = ({ postId, currentUser }: ICommentModal) => {
                 footer={footer}
                 className='comment-modal'
             >
-                {comments.map((comment: CommentAttributes) => <Comment comment={comment} />)}
+                {comments.map((comment: CommentAttributes) => {
+                    return (
+                        <Comment
+                            comment={comment}
+                            currentUser={currentUser}
+                            setComments={setComments}
+                        />
+                    )
+                })}
                 {loading &&
                     <>
                         <Skeleton loading={loading} active avatar />

@@ -2,24 +2,41 @@ import { UserOutlined } from '@ant-design/icons'
 import { Avatar, Button, Popconfirm, Popover } from 'antd'
 import './styles.css'
 import { CommentAttributes } from '../postFeed/IPostFeed'
-import RemoveIcon from '../icons/RemoveIcon';
 import TreeDotsIcon from '../icons/TreeDotsIcon';
 import ProfilePicture from '../profilePicture/ProfilePicture';
+import { useState } from 'react';
+import { DELETE_COMMENT } from '../../services/api';
+import { Link } from 'react-router-dom';
 
 interface IComment {
     comment: CommentAttributes;
+    currentUser: string;
+    setComments: React.Dispatch<React.SetStateAction<CommentAttributes[]>>;
 }
 
-const Comment = ({ comment }: IComment) => {
+const Comment = ({ comment, currentUser, setComments }: IComment) => {
+
+    const [isDeletingComment, setIsDeletingComment] = useState<boolean>(false);
 
     const { id, content, user } = comment;
 
     const popOverContent = (
-        <Button type="text" danger>Excluir</Button>
+        <Button type="text" onClick={() => deleteComment(id)} danger disabled={isDeletingComment}>Excluir</Button>
     )
 
-    function confirm() {
-
+    async function deleteComment(commentId: string) {
+        try {
+            setIsDeletingComment(true);
+            const response = await DELETE_COMMENT(commentId);
+            if (response.status === 200) {
+                setComments((prev: CommentAttributes[]) =>
+                    prev.filter((comment: CommentAttributes) => comment.id !== commentId)
+                );
+                setIsDeletingComment(false);
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
@@ -32,12 +49,16 @@ const Comment = ({ comment }: IComment) => {
             />
             <div>
                 <div className='comment-author-name'>
-                    <h4>{user.name}</h4>
-                    <div>
-                        <Popover content={popOverContent} trigger="click" placement="bottomRight">
-                            <Button type="text"><TreeDotsIcon /></Button>
-                        </Popover>
-                    </div>
+                    <Link to={`/perfil/${user.id}`}>
+                        <h4>{user.name}</h4>
+                    </Link>
+                    {user.id === currentUser &&
+                        <div>
+                            <Popover content={popOverContent} trigger="click" placement="bottomRight">
+                                <Button type="text"><TreeDotsIcon /></Button>
+                            </Popover>
+                        </div>
+                    }
                 </div>
                 <p>{content}</p>
             </div>
