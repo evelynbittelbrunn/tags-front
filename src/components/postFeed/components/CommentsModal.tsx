@@ -72,7 +72,7 @@ const CommentsModal = ({ postId, currentUser }: ICommentModal) => {
                 <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
                 <Form
                     form={form}
-                    name="new-post"
+                    name="new-comment"
                     initialValues={{ remember: true }}
                     onFinish={onFinish}
                     autoComplete="off"

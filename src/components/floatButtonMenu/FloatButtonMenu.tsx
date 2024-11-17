@@ -47,11 +47,13 @@ const FloatButtonMenu = ({
                         >
                             <FloatButton
                                 icon={<FormOutlined />}
+                                key="post-button"
                                 tooltip={"Publicar"}
                                 onClick={() => setOpenNewPostModal(true)}
                             />
                             <FloatButton
                                 icon={<TagOutlined />}
+                                key="tags-button"
                                 tooltip={"Definir tags"}
                                 onClick={() => setOpenTagsModal(true)}
                             />
