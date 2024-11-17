@@ -117,6 +117,7 @@ const CommentsModal = ({ postId, currentUser }: ICommentModal) => {
                 {comments.map((comment: CommentAttributes) => {
                     return (
                         <Comment
+                            key={comment.id}
                             comment={comment}
                             currentUser={currentUser}
                             setComments={setComments}
