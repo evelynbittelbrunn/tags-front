@@ -20,7 +20,7 @@ const TagsModal = ({
     const [tagsList, setTagsList] = useState([]);
 
     const userId = localStorage.getItem('user');
-    const [form] = Form.useForm();
+    const [formTags] = Form.useForm();
 
     useEffect(() => {
         if (!openTagsModal || userId == null) return;
@@ -41,7 +41,7 @@ const TagsModal = ({
                 }
             });
 
-            form.setFieldsValue({
+            formTags.setFieldsValue({
                 tags: newList.filter((item: any) => item.selected)
             });
 
@@ -60,7 +60,7 @@ const TagsModal = ({
         setOpenTagsModal(false);
     };
 
-    const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
+    const onFinishTags: FormProps<FieldType>['onFinish'] = async (values) => {
 
         try {
 
@@ -88,14 +88,14 @@ const TagsModal = ({
             open={openTagsModal}
             onOk={handleOk}
             onCancel={handleCancel}
-            okButtonProps={{ htmlType: "submit", form: "new-post" }}
+            okButtonProps={{ htmlType: "submit", form: "tags-form" }}
             width={450}
         >
             <Form
-                form={form}
-                name="new-post"
+                form={formTags}
+                name="tags-form"
                 initialValues={{ remember: true }}
-                onFinish={onFinish}
+                onFinish={onFinishTags}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
             >

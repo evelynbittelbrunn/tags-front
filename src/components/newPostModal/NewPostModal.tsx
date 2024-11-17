@@ -51,6 +51,7 @@ const NewPostModal = ({
     };
 
     const onFinish: FormProps<FieldType>['onFinish'] = async (values: any) => {
+
         const userId = localStorage.getItem('user');
 
         const newPost = {
@@ -104,11 +105,11 @@ const NewPostModal = ({
             open={openNewPostModal}
             onOk={handleOk}
             onCancel={handleCancel}
-            okButtonProps={{ htmlType: "submit", form: "new-post" }}
+            okButtonProps={{ htmlType: "submit", form: "new-post-form" }}
         >
             <Form
                 form={form}
-                name="new-post"
+                name="new-post-form"
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
                 autoComplete="off"
