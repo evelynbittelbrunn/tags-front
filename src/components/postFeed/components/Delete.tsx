@@ -10,13 +10,10 @@ const Delete = ({ postId, setPosts }: IDelete) => {
 
     const confirm: PopconfirmProps['onConfirm'] = async (e) => {
         const response = await DELETE_POST(postId);
-        showNotification(response.data, "success");
-        console.log(response);
-        console.log(response);
-        // showNotification
         if (response.status === 200) {
             // @ts-ignore
             setPosts((prev): PostAttributes[] => prev.filter((post) => post.id !== postId));
+            showNotification(response.data, "success");
         }
     };
 

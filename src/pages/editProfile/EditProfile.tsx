@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { PUT_USER_PROFILE } from '../../services/api';
 import { Link } from 'react-router-dom';
 import ReturnIcon from '../../components/icons/ReturnIcon';
+import { useNotification } from '../../contexts/ToastNotificationContext';
 
 type FieldType = {
     name?: string;
@@ -11,6 +12,8 @@ type FieldType = {
 };
 
 const EditProfile = () => {
+
+    const { showNotification } = useNotification();
 
     const [imageUrl, setImageUrl] = useState<string>("");
 
@@ -28,6 +31,7 @@ const EditProfile = () => {
 
         try {
             const response = await PUT_USER_PROFILE(userId as string, profileData);
+            showNotification("Perfil salvo com sucesso!", "success");
         } catch (error) {
 
         }

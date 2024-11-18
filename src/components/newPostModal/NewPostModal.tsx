@@ -5,11 +5,14 @@ import { useEffect, useState } from 'react'
 import { GET_TAGS, NEW_POST } from '../../services/api';
 import "./styles.css"
 import { FieldType, Image, INewPostModal } from './INewPostModal';
+import { useNotification } from '../../contexts/ToastNotificationContext';
 
 const NewPostModal = ({
     openNewPostModal,
     setOpenNewPostModal
 }: INewPostModal) => {
+
+    const { showNotification } = useNotification();
 
     const [newImage, setNewImage] = useState<Image>({} as Image);
     const [tagsList, setTagsList] = useState([]);
@@ -63,6 +66,7 @@ const NewPostModal = ({
 
         try {
             const response = await NEW_POST(newPost);
+            showNotification("Postagem criada com sucesso!", "success");
         } catch (error) {
             console.log(error);
         }

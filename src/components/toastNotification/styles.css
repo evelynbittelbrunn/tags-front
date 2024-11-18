@@ -2,37 +2,44 @@
     position: fixed;
     bottom: 0;
     left: 0;
-    transform: translateX(-50%);
-    visibility: hidden;
-    padding: 0 20px;
+    transform: translateY(100%);
+    opacity: 0;
+    padding: 10px 20px;
     color: white;
     font-size: 16px;
-    opacity: 0.9;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.3s ease;
     z-index: 1000;
     text-align: center;
     width: 100vw;
+    background-color: #1A1A1E;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.footer-notification p {
+    margin: 0;
 }
 
 .footer-notification.show {
-    visibility: visible;
+    opacity: 0.9;
     transform: translateY(0); 
 }
 
 .footer-notification.hide {
     opacity: 0;
-    visibility: hidden;
-    transform: translateX(-50%) translateY(100px);
+    transform: translateY(100%);
 }
 
-.footer-notification.success {
-    background-color: #28a745;
+
+.footer-notification.success svg {
+    color: green;
 }
 
-.footer-notification.error {
-    background-color: #dc3545;
+.footer-notification.error svg {
+    color: #dc3545;
 }
 
-.footer-notification.warning {
-    background-color: #ffc107;
+.footer-notification.warning svg {
+    color: #ffc107;
 }
