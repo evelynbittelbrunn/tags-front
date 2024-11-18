@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './styles.css';
+import CheckIcon from '../icons/CheckIcon';
 
 const ToastNotification = ({
     message,
@@ -8,29 +9,24 @@ const ToastNotification = ({
     onClose,
 }: IToastNotification) => {
 
-    const [isExiting, setIsExiting] = useState(false); 
+    const [show, setShow] = useState(false);
 
     useEffect(() => {
-        let timer: NodeJS.Timeout;
-
         if (isVisible) {
-            setIsExiting(false); 
-            timer = setTimeout(() => {
-                setIsExiting(true);
-            }, 3000); 
-        } else if (!isVisible && isExiting) {
-            setTimeout(onClose, 300); 
+            setShow(true);
+            const timer = setTimeout(() => {
+                setShow(false);
+                setTimeout(onClose, 300);
+            }, 3500);
+            return () => clearTimeout(timer);
         }
-
-        return () => {
-            clearTimeout(timer);
-        };
-    }, [isVisible, isExiting, onClose]);
+    }, [isVisible, onClose]);
 
     return (
         <div
-            className={`footer-notification ${isVisible && !isExiting ? 'show' : ''} ${isExiting ? 'hide' : ''} ${type}`}
+            className={`footer-notification ${show ? 'show' : 'hide'} ${type}`}
         >
+            <CheckIcon />
             <p>{message}</p>
         </div>
     );

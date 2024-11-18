@@ -2,6 +2,7 @@ import { Form, FormProps, Modal, Select } from 'antd'
 import { Option } from 'antd/es/mentions';
 import { useEffect, useState } from 'react';
 import { GET_TAGS, POST_TAGS } from '../../services/api';
+import { useNotification } from '../../contexts/ToastNotificationContext';
 
 type FieldType = {
     tags?: string[];
@@ -17,8 +18,9 @@ const TagsModal = ({
     setOpenTagsModal
 }: ITagsModal) => {
 
-    const [tagsList, setTagsList] = useState([]);
+    const { showNotification } = useNotification();
 
+    const [tagsList, setTagsList] = useState([]);
     const userId = localStorage.getItem('user');
     const [formTags] = Form.useForm();
 
@@ -70,7 +72,7 @@ const TagsModal = ({
             };
 
             const { data } = await POST_TAGS(categoriesToSave);
-
+            showNotification(data, "success");
         } catch (error) {
 
         }
