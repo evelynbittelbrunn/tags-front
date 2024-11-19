@@ -3,6 +3,8 @@ export type ProfileData = {
     name: string;
     profilePicture: string;
     following: boolean;
+    followersCount: number;
+    followingCount: number;
 }
 
 export interface IProfileInfo {

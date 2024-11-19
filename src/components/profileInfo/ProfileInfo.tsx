@@ -18,7 +18,7 @@ const ProfileInfo = ({
     setTotalFollowers
 }: IProfileInfo) => {
 
-    const { name, bio, profilePicture, following } = profileData;
+    const { name, bio, profilePicture, following, followingCount } = profileData;
 
     const [isLoadingButton, setIsLoadingButton] = useState<boolean>(false);
     const [isFollowing, setIsFollowing] = useState<boolean>(false);
@@ -63,7 +63,7 @@ const ProfileInfo = ({
             />
             <div className='profile-content'>
                 <h3>{name}</h3>
-                <span><b>{totalFollowers}</b> {totalFollowers > 1 ? 'seguidores' : 'seguindo'}</span><span><b>120</b> seguindo</span>
+                <span><b>{totalFollowers}</b> {totalFollowers > 1 ? 'seguidores' : 'seguindo'}</span><span><b>{followingCount}</b> seguindo</span>
                 <p>{bio}</p>
                 {/* <div className='profile-tags'>
                     <h4>Tags do perfil:</h4>
