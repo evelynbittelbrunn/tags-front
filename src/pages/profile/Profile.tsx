@@ -8,6 +8,7 @@ import PostFeed from '../../components/postFeed/PostFeed';
 const Profile = () => {
 
     const [profileData, setProfileData] = useState<ProfileData>({} as ProfileData);
+    const [totalFollowers, setTotalFollowers] = useState<number>(0);
 
     const { id } = useParams();
 
@@ -23,6 +24,7 @@ const Profile = () => {
 
         const { data } = await GET_USER_PROFILE(userId as string, currentUser as string);
 
+        setTotalFollowers(data.followersCount);
         setProfileData(data);
     }
 
@@ -41,6 +43,8 @@ const Profile = () => {
                 profileData={profileData}
                 isCurrentUser={(id == undefined || id === currentUser) ? true : false}
                 otherUserId={id}
+                totalFollowers={totalFollowers}
+                setTotalFollowers={setTotalFollowers}
             />
             <PostFeed key={id == undefined ? currentUser : id} isProfileFeed={true} getPosts={getPosts} />
         </div>

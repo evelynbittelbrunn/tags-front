@@ -10,7 +10,13 @@ import EditIcon from '../icons/EditIcon';
 import SendIcon from '../icons/SendIcon';
 import ProfilePicture from '../profilePicture/ProfilePicture';
 
-const ProfileInfo = ({ profileData, isCurrentUser, otherUserId }: IProfileInfo) => {
+const ProfileInfo = ({
+    profileData,
+    isCurrentUser,
+    otherUserId,
+    totalFollowers,
+    setTotalFollowers
+}: IProfileInfo) => {
 
     const { name, bio, profilePicture, following } = profileData;
 
@@ -26,7 +32,13 @@ const ProfileInfo = ({ profileData, isCurrentUser, otherUserId }: IProfileInfo) 
             const response = await POST_FOLLOW(currentUser as string, otherUserId as string);
 
             if (response.status == 200) {
-                setIsFollowing(prev => !prev);
+
+                const { data } = response;
+
+                const total = data.isFollowing ? totalFollowers + 1 : totalFollowers - 1;
+
+                setTotalFollowers(total);
+                setIsFollowing(data.isFollowing);
             } else {
                 const error = await response.statusText;
                 console.error("Erro:", error);
@@ -49,13 +61,9 @@ const ProfileInfo = ({ profileData, isCurrentUser, otherUserId }: IProfileInfo) 
                 hasLink={false}
                 size={115}
             />
-            {/* {(profilePicture != "" && profilePicture !== null)
-                ? <img src={`data:image/jpeg;base64,${profilePicture}`} alt="Foto de Perfil" className="profile-image"></img>
-                : <Avatar size={115} style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
-            } */}
             <div className='profile-content'>
                 <h3>{name}</h3>
-                <span><b>220</b> seguidores</span><span><b>120</b> seguindo</span>
+                <span><b>{totalFollowers}</b> {totalFollowers > 1 ? 'seguidores' : 'seguindo'}</span><span><b>120</b> seguindo</span>
                 <p>{bio}</p>
                 {/* <div className='profile-tags'>
                     <h4>Tags do perfil:</h4>
