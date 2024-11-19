@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { PostAttributes, User } from '../IPostFeed'
 import PostAuthor from './PostAuthor';
 import Delete from './Delete';
@@ -14,7 +14,11 @@ interface ICardPost {
 
 const Post = ({ post, user, currentUser, setPosts }: ICardPost) => {
 
-    const { id, content, imageData, isLiked } = post;
+    const { id, content, imageData, isLiked, likeCount, commentCount } = post;
+
+    const [totalLikes, setTotalLikes] = useState<number>(likeCount);
+    const [totalComments, setTotalComments] = useState<number>(commentCount);
+
 
     return (
         <div key={id} className='card-post-feed'>
@@ -37,8 +41,15 @@ const Post = ({ post, user, currentUser, setPosts }: ICardPost) => {
                     isLiked={isLiked}
                     currentUserId={currentUser as string}
                     postId={id}
+                    totalLikes={totalLikes}
+                    setTotalLikes={setTotalLikes}
                 />
-                <CommentsModal postId={id} currentUser={currentUser as string} />
+                <CommentsModal
+                    postId={id}
+                    currentUser={currentUser as string}
+                    totalComments={totalComments}
+                    setTotalComments={setTotalComments}
+                />
             </div>
         </div>
     )

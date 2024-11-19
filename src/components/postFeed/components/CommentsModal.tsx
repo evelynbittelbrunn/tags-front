@@ -11,13 +11,15 @@ import { CommentAttributes } from '../IPostFeed';
 interface ICommentModal {
     postId: string;
     currentUser: string;
+    totalComments: number;
+    setTotalComments: any;
 }
 
 export type FieldType = {
     comment: string;
 };
 
-const CommentsModal = ({ postId, currentUser }: ICommentModal) => {
+const CommentsModal = ({ postId, currentUser, totalComments, setTotalComments }: ICommentModal) => {
 
     const [open, setOpen] = useState<boolean>(false);
     const [comments, setComments] = useState<CommentAttributes[]>([]);
@@ -28,7 +30,6 @@ const CommentsModal = ({ postId, currentUser }: ICommentModal) => {
     const onFinish: FormProps<FieldType>['onFinish'] = async (values: FieldType) => {
         setIsSavingComment(true);
         form.resetFields();
-        console.log(values)
 
         const commentToSave = {
             userId: currentUser,
@@ -40,6 +41,7 @@ const CommentsModal = ({ postId, currentUser }: ICommentModal) => {
             const response = await POST_COMMENT(commentToSave);
             if (response.status === 200) {
                 setComments(prev => [response.data, ...prev]);
+                setTotalComments((prev: number) => prev + 1);
             }
         } catch (error) {
             console.log(error);
@@ -102,7 +104,10 @@ const CommentsModal = ({ postId, currentUser }: ICommentModal) => {
 
     return (
         <>
-            <CommentIcon setOpen={setOpen} />
+            <div>
+                <CommentIcon setOpen={setOpen} />
+                <span>{totalComments}</span>
+            </div>
             <Modal
                 title={<p>Comentários</p>}
                 loading={loading}
@@ -121,6 +126,7 @@ const CommentsModal = ({ postId, currentUser }: ICommentModal) => {
                             comment={comment}
                             currentUser={currentUser}
                             setComments={setComments}
+                            setTotalComments={setTotalComments}
                         />
                     )
                 })}
