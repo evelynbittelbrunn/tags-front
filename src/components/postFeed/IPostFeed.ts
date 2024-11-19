@@ -5,6 +5,8 @@ export type PostAttributes = {
     createdAt: any;
     user: User;
     isLiked: boolean;
+    likeCount: number;
+    commentCount: number;
 }
 
 export type CommentAttributes = {
@@ -36,6 +38,8 @@ export interface ILike {
     currentUserId: string;
     postId: string;
     isLiked: boolean;
+    totalLikes: number;
+    setTotalLikes: any;
 }
 
 export interface IDelete {

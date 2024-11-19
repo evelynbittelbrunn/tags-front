@@ -12,9 +12,10 @@ interface IComment {
     comment: CommentAttributes;
     currentUser: string;
     setComments: React.Dispatch<React.SetStateAction<CommentAttributes[]>>;
+    setTotalComments: any;
 }
 
-const Comment = ({ comment, currentUser, setComments }: IComment) => {
+const Comment = ({ comment, currentUser, setComments, setTotalComments }: IComment) => {
 
     const [isDeletingComment, setIsDeletingComment] = useState<boolean>(false);
 
@@ -33,6 +34,7 @@ const Comment = ({ comment, currentUser, setComments }: IComment) => {
                     prev.filter((comment: CommentAttributes) => comment.id !== commentId)
                 );
                 setIsDeletingComment(false);
+                setTotalComments((prev: number) => prev - 1);
             }
         } catch (error) {
             console.log(error);
