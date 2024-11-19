@@ -13,7 +13,7 @@ export type CommentAttributes = {
     user: User;
 }
 
-type User = {
+export type User = {
     id: string;
     name: string;
     profilePicture: any;
