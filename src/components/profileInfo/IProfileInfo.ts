@@ -9,4 +9,6 @@ export interface IProfileInfo {
     profileData: ProfileData;
     isCurrentUser: boolean;
     otherUserId: string | undefined;
+    totalFollowers: number;
+    setTotalFollowers: (totalFollowers: number) => void;
 }

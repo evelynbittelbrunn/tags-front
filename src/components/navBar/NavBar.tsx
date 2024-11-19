@@ -22,7 +22,7 @@ export default function NavBar() {
             <nav>
                 <Link to="/"><HomeOutlined /></Link>
 
-                <Popover content={content} trigger="click">
+                <Popover content={content}>
                     <Avatar icon={<UserOutlined />} />
                 </Popover>
             </nav>
