@@ -7,6 +7,7 @@ import { PostAttributes } from '../IPostFeed';
 import PostAuthor from './PostAuthor';
 import Like from './Like';
 import Delete from './Delete';
+import Post from './Post';
 
 interface IPage {
     infinite: boolean;
@@ -67,30 +68,12 @@ const Page = ({
 
                 return (
                     <>
-                        <div key={post.id} className='card-post-feed'>
-                            <div className='post-header'>
-                                <PostAuthor user={user} />
-                                {(user.id === currentUser) &&
-                                    <Delete postId={post.id} setPosts={setPosts} />
-                                }
-                            </div>
-                            <p>{post.content}</p>
-                            {post.imageData && (
-                                <img
-                                    src={`data:image/jpeg;base64,${post.imageData}`}
-                                    alt="Post Image"
-                                    style={{ maxWidth: '100%', height: 'auto' }}
-                                />
-                            )}
-                            <div className='post-actions'>
-                                <Like
-                                    isLiked={post.isLiked}
-                                    currentUserId={currentUser as string}
-                                    postId={post.id}
-                                />
-                                <CommentsModal postId={post.id} currentUser={currentUser as string} />
-                            </div>
-                        </div>
+                        <Post
+                            post={post}
+                            user={user}
+                            currentUser={currentUser as string}
+                            setPosts={setPosts}
+                        />
                     </>
                 )
             })}
