@@ -3,6 +3,7 @@ import { Option } from 'antd/es/mentions';
 import { useEffect, useState } from 'react';
 import { GET_TAGS, POST_TAGS } from '../../services/api';
 import { useNotification } from '../../contexts/ToastNotificationContext';
+import { useFeedContext } from '../../contexts/FeedContext';
 
 type FieldType = {
     tags?: string[];
@@ -19,6 +20,7 @@ const TagsModal = ({
 }: ITagsModal) => {
 
     const { showNotification } = useNotification();
+    const { refreshFeed } = useFeedContext();
 
     const [tagsList, setTagsList] = useState([]);
     const userId = localStorage.getItem('user');
@@ -73,6 +75,7 @@ const TagsModal = ({
 
             const { data } = await POST_TAGS(categoriesToSave);
             showNotification(data, "success");
+            refreshFeed();
         } catch (error) {
 
         }
