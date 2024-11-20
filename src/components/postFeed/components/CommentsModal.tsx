@@ -92,7 +92,7 @@ const CommentsModal = ({ postId, currentUser, totalComments, setTotalComments }:
                             />
                         </Form.Item>
                         <Form.Item className='submit-comment'>
-                            <Button htmlType="submit" type="text" disabled={isSavingComment}>
+                            <Button className='dark-hover' htmlType="submit" type="text" disabled={isSavingComment}>
                                 <SendIcon />
                             </Button>
                         </Form.Item>

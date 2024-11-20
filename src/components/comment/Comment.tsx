@@ -22,7 +22,7 @@ const Comment = ({ comment, currentUser, setComments, setTotalComments }: IComme
     const { id, content, user } = comment;
 
     const popOverContent = (
-        <Button type="text" onClick={() => deleteComment(id)} danger disabled={isDeletingComment}>Excluir</Button>
+        <Button className='dark-hover' type="text" onClick={() => deleteComment(id)} danger disabled={isDeletingComment}>Excluir</Button>
     )
 
     async function deleteComment(commentId: string) {
@@ -57,7 +57,7 @@ const Comment = ({ comment, currentUser, setComments, setTotalComments }: IComme
                     {user.id === currentUser &&
                         <div>
                             <Popover content={popOverContent} trigger="click" placement="bottomRight">
-                                <Button type="text"><TreeDotsIcon /></Button>
+                                <Button type="text" className='dark-hover'><TreeDotsIcon /></Button>
                             </Popover>
                         </div>
                     }
