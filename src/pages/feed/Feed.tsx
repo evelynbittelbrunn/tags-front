@@ -1,9 +1,11 @@
 import PostFeed from "../../components/postFeed/PostFeed";
+import { useFeedContext } from "../../contexts/FeedContext";
 
 export default function Feed() {
+    const { feedKey } = useFeedContext();
     return (
         <div>
-            <PostFeed isProfileFeed={false} />
+            <PostFeed key={feedKey} isProfileFeed={false} />
         </div>
     )
 }

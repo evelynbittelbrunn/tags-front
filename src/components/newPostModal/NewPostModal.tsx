@@ -6,6 +6,7 @@ import { GET_TAGS, NEW_POST } from '../../services/api';
 import "./styles.css"
 import { FieldType, Image, INewPostModal } from './INewPostModal';
 import { useNotification } from '../../contexts/ToastNotificationContext';
+import { useFeedContext } from '../../contexts/FeedContext';
 
 const NewPostModal = ({
     openNewPostModal,
@@ -13,6 +14,7 @@ const NewPostModal = ({
 }: INewPostModal) => {
 
     const { showNotification } = useNotification();
+    const { refreshFeed, refreshProfileFeed } = useFeedContext();
 
     const [newImage, setNewImage] = useState<Image>({} as Image);
     const [tagsList, setTagsList] = useState([]);
@@ -67,6 +69,8 @@ const NewPostModal = ({
         try {
             const response = await NEW_POST(newPost);
             showNotification("Postagem criada com sucesso!", "success");
+            refreshFeed();
+            refreshProfileFeed();
         } catch (error) {
             console.log(error);
         }

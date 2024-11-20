@@ -4,11 +4,14 @@ import { ProfileData } from '../../components/profileInfo/IProfileInfo';
 import ProfileInfo from '../../components/profileInfo/ProfileInfo';
 import { useParams } from 'react-router-dom';
 import PostFeed from '../../components/postFeed/PostFeed';
+import { useFeedContext } from '../../contexts/FeedContext';
 
 const Profile = () => {
 
     const [profileData, setProfileData] = useState<ProfileData>({} as ProfileData);
     const [totalFollowers, setTotalFollowers] = useState<number>(0);
+
+    const { profileFeedKey } = useFeedContext();
 
     const { id } = useParams();
 
@@ -46,7 +49,7 @@ const Profile = () => {
                 totalFollowers={totalFollowers}
                 setTotalFollowers={setTotalFollowers}
             />
-            <PostFeed key={id == undefined ? currentUser : id} isProfileFeed={true} getPosts={getPosts} />
+            <PostFeed key={profileFeedKey} isProfileFeed={true} getPosts={getPosts} />
         </div>
     )
 }

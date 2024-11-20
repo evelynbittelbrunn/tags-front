@@ -12,6 +12,7 @@ import { useState } from 'react';
 import TagsModal from './components/tagsModal/TagsModal';
 import ProtectedRoute from './routes/ProtectedRoute';
 import { NotificationProvider } from './contexts/ToastNotificationContext';
+import { FeedProvider } from './contexts/FeedContext';
 
 function App() {
 
@@ -23,29 +24,31 @@ function App() {
             <BrowserRouter>
                 <UserStorage>
                     <NotificationProvider>
-                        <div className='body'>
-                            <NavBar />
-                            <div className='main-container'>
-                                <Routes>
-                                    <Route path="/" element={<ProtectedRoute><Feed /></ProtectedRoute>} />
-                                    <Route path="/login/*" element={<AuthRoutes />} />
-                                    <Route path="/perfil/:id?" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-                                    <Route path='/editar-perfil' element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
-                                </Routes>
+                        <FeedProvider>
+                            <div className='body'>
+                                <NavBar />
+                                <div className='main-container'>
+                                    <Routes>
+                                        <Route path="/" element={<ProtectedRoute><Feed /></ProtectedRoute>} />
+                                        <Route path="/login/*" element={<AuthRoutes />} />
+                                        <Route path="/perfil/:id?" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+                                        <Route path='/editar-perfil' element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
+                                    </Routes>
+                                </div>
+                                <FloatButtonMenu
+                                    setOpenNewPostModal={setOpenNewPostModal}
+                                    setOpenTagsModal={setOpenTagsModal}
+                                />
+                                <TagsModal
+                                    openTagsModal={openTagsModal}
+                                    setOpenTagsModal={setOpenTagsModal}
+                                />
+                                <NewPostModal
+                                    openNewPostModal={openNewPostModal}
+                                    setOpenNewPostModal={setOpenNewPostModal}
+                                />
                             </div>
-                            <FloatButtonMenu
-                                setOpenNewPostModal={setOpenNewPostModal}
-                                setOpenTagsModal={setOpenTagsModal}
-                            />
-                            <TagsModal
-                                openTagsModal={openTagsModal}
-                                setOpenTagsModal={setOpenTagsModal}
-                            />
-                            <NewPostModal
-                                openNewPostModal={openNewPostModal}
-                                setOpenNewPostModal={setOpenNewPostModal}
-                            />
-                        </div>
+                        </FeedProvider>
                     </NotificationProvider>
                 </UserStorage>
             </BrowserRouter>
