@@ -39,36 +39,6 @@ a{
 .body {
     position: relative;
 }
-/* 
-.ant-input,
-.ant-input-affix-wrapper,
-.ant-input-affix-wrapper * {
-    background-color: #222222 !important;
-    color: #F0F0F0;
-    outline: 0;
-}
-
-.ant-input,
-.ant-input-affix-wrapper {
-    padding: 8px 10px;
-}
-
-.ant-input-outlined:focus {
-    border-color: #BCACC7 !important;
-} */
-
-
-
-
-/* .ant-input:focus,
-.ant-input:hover,
-.ant-input-affix-wrapper:focus,
-.ant-input-affix-wrapper:hover {
-    outline: none;
-    border-color: #fb1;
-    background: white;
-    box-shadow: 0 0 0 3px #fea;
-} */
 
 .ant-form-item-control {
     flex: none !important;

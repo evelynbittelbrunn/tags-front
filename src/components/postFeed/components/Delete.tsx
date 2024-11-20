@@ -26,7 +26,7 @@ const Delete = ({ postId, setPosts }: IDelete) => {
                 okText="Sim"
                 cancelText="Não"
             >
-                <Button type="text" danger><RemoveIcon /></Button>
+                <Button className='dark-hover' type="text" danger><RemoveIcon /></Button>
             </Popconfirm>
         </div>
     )

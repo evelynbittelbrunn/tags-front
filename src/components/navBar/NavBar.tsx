@@ -11,8 +11,8 @@ export default function NavBar() {
 
     const content = (
         <div style={{ display: "flex", flexDirection: "column" }}>
-            <Link to="/perfil"><Button type="text">Meu Perfil</Button></Link>
-            <Button onClick={userLogout} type="text">Sair</Button>
+            <Link to="/perfil"><Button className='dark-hover' type="text">Meu Perfil</Button></Link>
+            <Button className='dark-hover' onClick={userLogout} type="text">Sair</Button>
         </div>
     );
 

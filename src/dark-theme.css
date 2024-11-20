@@ -1,0 +1,29 @@
+
+/* Cor do hover nos botões */
+.dark-hover:hover {
+    background-color: #404040 !important; /* Fundo mais claro no hover */
+}
+
+/* Retirando a sombra dos botões */
+.ant-btn {
+    box-shadow: none !important; /* Remove sombra */
+}
+  
+.ant-btn-primary {
+    box-shadow: none !important; /* Remove sombra dos botões primários */
+}
+
+/* Múltiplo select do ant */
+.ant-select-selection-item {
+    background-color: #612EC9 !important; /* Fundo escuro */
+    color: #ffffff !important; /* Texto claro */
+    border-radius: 4px; /* Borda arredondada */
+    padding: 2px 8px; /* Espaçamento interno */
+}
+
+.ant-select-selection-item:hover,
+.ant-select-item-option:hover,
+.ant-select-item-option-selected {
+    background-color: #4a4a4a !important; /* Fundo mais claro no hover */
+    color: #ffffff !important; /* Mantém o texto claro */
+}
