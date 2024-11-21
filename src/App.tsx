@@ -26,24 +26,21 @@ function App() {
         <UserStorage>
             <div className='app'>
                 {isLoginRoute ? (
-                    // Se for uma página de login, carrega somente o componente de rotas de login
                     <Routes>
                         <Route path="/login/*" element={<AuthRoutes />} />
                     </Routes>
                 ) : (
-                    // Caso contrário, carrega o restante da aplicação
-
                     <NotificationProvider>
                         <FeedProvider>
-                            <div className='body'>
+                            <div className='main-container'>
                                 <NavBar />
-                                <div className='main-container'>
-                                    <Routes>
-                                        <Route path="/" element={<ProtectedRoute><Feed /></ProtectedRoute>} />
-                                        <Route path="/perfil/:id?" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-                                        <Route path='/editar-perfil' element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
-                                    </Routes>
-                                </div>
+                                {/* <div className='main-container'> */}
+                                <Routes>
+                                    <Route path="/" element={<ProtectedRoute><Feed /></ProtectedRoute>} />
+                                    <Route path="/perfil/:id?" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+                                    <Route path='/editar-perfil' element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
+                                </Routes>
+                                {/* </div> */}
                                 <FloatButtonMenu
                                     setOpenNewPostModal={setOpenNewPostModal}
                                     setOpenTagsModal={setOpenTagsModal}
