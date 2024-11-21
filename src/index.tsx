@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import { ConfigProvider } from 'antd';
 import './dark-theme.css';
+import { BrowserRouter } from 'react-router-dom';
 // import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
@@ -25,7 +26,9 @@ root.render(
                 colorIconHover: "#612EC9",
             }
         }}>
-        <App />
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
     </ConfigProvider>
 );
 
