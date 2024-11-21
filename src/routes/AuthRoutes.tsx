@@ -5,12 +5,10 @@ import CreateAccount from '../pages/createAccount/CreateAccount'
 
 const AuthRoutes = () => {
     return (
-        <div>
-            <Routes>
-                <Route path="/" element={<Login />} />
-                <Route path="/criar" element={<CreateAccount />} />
-            </Routes>
-        </div>
+        <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/criar" element={<CreateAccount />} />
+        </Routes>
     )
 }
 

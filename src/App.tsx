@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Router, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Router, Routes, useLocation } from 'react-router-dom';
 import './App.css';
 import Feed from './pages/feed/Feed';
 import NavBar from './components/navBar/NavBar';
@@ -19,10 +19,20 @@ function App() {
     const [openNewPostModal, setOpenNewPostModal] = useState<boolean>(false);
     const [openTagsModal, setOpenTagsModal] = useState<boolean>(false);
 
+    const location = useLocation();
+    const isLoginRoute = location.pathname.startsWith('/login');
+
     return (
-        <div className='app'>
-            <BrowserRouter>
-                <UserStorage>
+        <UserStorage>
+            <div className='app'>
+                {isLoginRoute ? (
+                    // Se for uma página de login, carrega somente o componente de rotas de login
+                    <Routes>
+                        <Route path="/login/*" element={<AuthRoutes />} />
+                    </Routes>
+                ) : (
+                    // Caso contrário, carrega o restante da aplicação
+
                     <NotificationProvider>
                         <FeedProvider>
                             <div className='body'>
@@ -30,7 +40,6 @@ function App() {
                                 <div className='main-container'>
                                     <Routes>
                                         <Route path="/" element={<ProtectedRoute><Feed /></ProtectedRoute>} />
-                                        <Route path="/login/*" element={<AuthRoutes />} />
                                         <Route path="/perfil/:id?" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
                                         <Route path='/editar-perfil' element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
                                     </Routes>
@@ -50,9 +59,9 @@ function App() {
                             </div>
                         </FeedProvider>
                     </NotificationProvider>
-                </UserStorage>
-            </BrowserRouter>
-        </div>
+                )}
+            </div >
+        </UserStorage>
     );
 }
 

@@ -1,15 +1,15 @@
 import { Button, Form, Input } from 'antd'
 import { Link } from 'react-router-dom'
-import './styles.css';
 import { UserContext } from '../../contexts/UserContext';
 import { useContext } from 'react';
 import { ignore } from 'antd/es/theme/useToken';
+import AuthLayout from '../../components/authLayout/AuthLayout';
+import { Auth } from '../../components/authLayout/IAuthLayout';
 
 type FieldType = {
     username?: string;
     password?: string;
     email?: string;
-    remember?: string;
 };
 
 const Login = () => {
@@ -31,48 +31,39 @@ const Login = () => {
     }
 
     return (
-        <div className='login-background'>
-            <div className='login-card'>
-                <Form
-                    name="basic"
-                    initialValues={{ remember: true }}
-                    onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
-                    autoComplete="off"
-                    className='form-login'
-                >
+        <AuthLayout type={Auth.LOGIN} >
+            <Form
+                name="basic"
+                initialValues={{ remember: true }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                autoComplete="off"
+                className='form-login'
+            >
+                <div style={{ marginBottom: "25px" }}>
                     <Form.Item<FieldType>
-                        label="Username"
+                        label="E-mail"
                         name="email"
-                        rules={[{ required: true, message: 'Please input your username!' }]}
+                        rules={[{ required: true, message: 'Preencha seu e-mail!' }]}
                     >
                         <Input />
                     </Form.Item>
 
                     <Form.Item<FieldType>
-                        label="Password"
+                        label="Senha"
                         name="password"
-                        rules={[{ required: true, message: 'Please input your password!' }]}
+                        rules={[{ required: true, message: 'Preencha sua senha!' }]}
                     >
                         <Input.Password />
                     </Form.Item>
-
-                    <Form.Item<FieldType>
-                        name="remember"
-                        valuePropName="checked"
-                        wrapperCol={{ offset: 8, span: 16 }}
-                    >
-                    </Form.Item>
-
-                    <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                        <Button type="primary" htmlType="submit">
-                            Submit
-                        </Button>
-                    </Form.Item>
-                </Form>
-                <Link to="/login/criar">Cadastro</Link>
-            </div>
-        </div>
+                </div>
+                <Form.Item>
+                    <Button className='submit-login' type="primary" htmlType="submit">
+                        Entrar
+                    </Button>
+                </Form.Item>
+            </Form>
+        </AuthLayout>
     )
 }
 
