@@ -12,6 +12,10 @@ body {
 .main-container {
     max-width: 450px;
     margin: 0 auto;
+    position: relative;
+    padding-top: 55px;
+    width: 100vw;
+    height: 100vh;
 }
 
 * {
@@ -34,10 +38,6 @@ p {
 a{
     /* color: black; */
     text-decoration: none;
-}
-
-.body {
-    position: relative;
 }
 
 .ant-form-item-control {
