@@ -1,10 +1,11 @@
-import { Button, Form, FormProps, Input } from 'antd';
+import { Button, Form, FormProps, Input, Skeleton, Spin } from 'antd';
 import UploadImage from '../../components/uploadImage/UploadImage';
-import { useState } from 'react';
-import { PUT_USER_PROFILE } from '../../services/api';
+import { useEffect, useState } from 'react';
+import { GET_USER_PROFILE, PUT_USER_PROFILE } from '../../services/api';
 import { Link } from 'react-router-dom';
 import ReturnIcon from '../../components/icons/ReturnIcon';
 import { useNotification } from '../../contexts/ToastNotificationContext';
+import { ProfileData } from '../../components/profileInfo/IProfileInfo';
 
 type FieldType = {
     name?: string;
@@ -16,8 +17,13 @@ const EditProfile = () => {
     const { showNotification } = useNotification();
 
     const [imageUrl, setImageUrl] = useState<string>("");
+    const [isFetchingData, setIsFetchingData] = useState<boolean>(true);
+    const [isSaving, setIsSaving] = useState<boolean>(false);
+    const [editProfileData, setEditProfileData] = useState<ProfileData>({} as ProfileData);
 
     const [form] = Form.useForm();
+
+    const currentUser = localStorage.getItem('user');
 
     const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
 
@@ -30,8 +36,10 @@ const EditProfile = () => {
         const userId = localStorage.getItem('user');
 
         try {
+            setIsSaving(true);
             const response = await PUT_USER_PROFILE(userId as string, profileData);
             showNotification("Perfil salvo com sucesso!", "success");
+            setIsSaving(false);
         } catch (error) {
 
         }
@@ -41,8 +49,28 @@ const EditProfile = () => {
         console.log('Failed:', errorInfo);
     };
 
+    async function fetchUserProfile() {
+
+        setIsFetchingData(true);
+        const { data } = await GET_USER_PROFILE(currentUser as string, currentUser as string);
+
+        form.setFieldsValue({
+            name: data.name,
+            bio: data.bio
+        });
+
+        setImageUrl(data.profilePicture && `data:image/jpeg;base64,${data.profilePicture}`);
+        setEditProfileData(data);
+        setIsFetchingData(false);
+    }
+
+    useEffect(() => {
+        fetchUserProfile();
+    }, []);
+
+    if (isFetchingData) return <Spin />;
     return (
-        <div>
+        <div style={{ paddingTop: '10px' }}>
             <Link to="/perfil"><ReturnIcon /></Link>
             <Form
                 name="edit-profile-form"
@@ -51,6 +79,7 @@ const EditProfile = () => {
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
                 form={form}
+                style={{ textAlign: 'center' }}
             >
                 <UploadImage imageUrl={imageUrl} setImageUrl={setImageUrl} />
                 <Form.Item<FieldType>
@@ -69,10 +98,13 @@ const EditProfile = () => {
                     <Input />
                 </Form.Item>
 
-                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                    <Button type="primary" htmlType="submit">
-                        Submit
-                    </Button>
+                <Form.Item wrapperCol={{ offset: 8, span: 16 }} >
+                    <div style={{ display: 'flex', gap: '10px', justifyContent: 'end' }}>
+                        <Link to="/perfil"><Button>Cancelar</Button></Link>
+                        <Button type="primary" htmlType="submit" loading={isSaving}>
+                            Salvar alterações
+                        </Button>
+                    </div>
                 </Form.Item>
             </Form>
         </div>

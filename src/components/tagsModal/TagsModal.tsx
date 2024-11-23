@@ -108,7 +108,7 @@ const TagsModal = ({
                     name="tags"
                     rules={[{ required: true, message: 'Selecione suas tags favoritas ;)', type: 'array' }]}
                 >
-                    <Select mode="multiple" placeholder="Please select favourite colors">
+                    <Select mode="multiple" placeholder="Selecione as tags que tem interesse">
                         {tagsList.map((tag: any) => {
                             return (
                                 <Option key={tag.value} value={tag.value}>{tag.label}</Option>
