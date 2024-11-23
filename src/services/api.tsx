@@ -5,7 +5,7 @@ function getToken() {
 }
 
 const api = axios.create({
-    baseURL: 'http://localhost:8080',
+    baseURL: 'https://tagsocial.site/api',
     headers: {
         'Content-Type': 'application/json',
     },
