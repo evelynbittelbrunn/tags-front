@@ -1,4 +1,4 @@
-import { Button, Form, FormProps, Input, Skeleton, Spin } from 'antd';
+import { Button, Form, FormProps, Input, Spin } from 'antd';
 import UploadImage from '../../components/uploadImage/UploadImage';
 import { useEffect, useState } from 'react';
 import { GET_USER_PROFILE, PUT_USER_PROFILE } from '../../services/api';
@@ -68,7 +68,7 @@ const EditProfile = () => {
         fetchUserProfile();
     }, []);
 
-    if (isFetchingData) return <Spin />;
+    if (isFetchingData) return <div className='full-page-spin'><Spin /></div>;
     return (
         <div style={{ paddingTop: '10px' }}>
             <Link to="/perfil"><ReturnIcon /></Link>

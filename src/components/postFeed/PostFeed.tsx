@@ -2,6 +2,7 @@ import './styles.css';
 import { useEffect, useState } from 'react';
 import Page from './components/Page';
 import { IPostFeed } from './IPostFeed';
+import { Spin } from 'antd';
 
 export default function PostFeed({
     isProfileFeed,
@@ -11,6 +12,7 @@ export default function PostFeed({
     const [pages, setPages] = useState<number[]>([1]);
     const [infinite, setInfinite] = useState(true);
     const [isLoadingRequest, setIsLoadingRequest] = useState<boolean>(false);
+    const [allPosts, setAllPosts] = useState([]);
 
     useEffect(() => {
         let wait = false;
@@ -51,6 +53,8 @@ export default function PostFeed({
                     setIsLoadingRequest={setIsLoadingRequest}
                     isProfileFeed={isProfileFeed}
                     getPosts={getPosts}
+                    allPosts={allPosts}
+                    setAllPosts={setAllPosts}
                 />
             ))}
         </>

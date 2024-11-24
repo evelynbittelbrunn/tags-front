@@ -13,6 +13,7 @@ import TagsModal from './components/tagsModal/TagsModal';
 import ProtectedRoute from './routes/ProtectedRoute';
 import { NotificationProvider } from './contexts/ToastNotificationContext';
 import { FeedProvider } from './contexts/FeedContext';
+import SearchResults from './pages/searchResults/SearchResults';
 
 function App() {
 
@@ -39,6 +40,7 @@ function App() {
                                     <Route path="/" element={<ProtectedRoute><Feed /></ProtectedRoute>} />
                                     <Route path="/perfil/:id?" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
                                     <Route path='/editar-perfil' element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
+                                    <Route path='/search' element={<ProtectedRoute><SearchResults /></ProtectedRoute>} />
                                 </Routes>
                                 {/* </div> */}
                                 <FloatButtonMenu

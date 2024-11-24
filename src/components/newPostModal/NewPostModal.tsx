@@ -44,6 +44,7 @@ const NewPostModal = ({
     };
 
     const handleCancel = () => {
+        setNewImage({} as Image);
         form.resetFields();
         setOpenNewPostModal(false);
     };

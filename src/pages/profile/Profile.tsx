@@ -10,6 +10,7 @@ const Profile = () => {
 
     const [profileData, setProfileData] = useState<ProfileData>({} as ProfileData);
     const [totalFollowers, setTotalFollowers] = useState<number>(0);
+    const [isLoadingUserData, setIsLoadingUserData] = useState(false);
 
     const { profileFeedKey } = useFeedContext();
 
@@ -23,12 +24,15 @@ const Profile = () => {
 
     async function fetchUserProfile() {
 
+        setIsLoadingUserData(true);
+
         const userId = id == undefined ? currentUser : id;
 
         const { data } = await GET_USER_PROFILE(userId as string, currentUser as string);
 
         setTotalFollowers(data.followersCount);
         setProfileData(data);
+        setIsLoadingUserData(false);
     }
 
     async function getPosts(page: number, total: number) {
@@ -41,13 +45,14 @@ const Profile = () => {
     }
 
     return (
-        <div>
+        <div id='profile-page'>
             <ProfileInfo
                 profileData={profileData}
                 isCurrentUser={(id == undefined || id === currentUser) ? true : false}
                 otherUserId={id}
                 totalFollowers={totalFollowers}
                 setTotalFollowers={setTotalFollowers}
+                isLoadingUserData={isLoadingUserData}
             />
             <PostFeed key={profileFeedKey} isProfileFeed={true} getPosts={getPosts} />
         </div>

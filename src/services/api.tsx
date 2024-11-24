@@ -134,3 +134,11 @@ export function DELETE_COMMENT(commentId: string) {
         },
     });
 }
+
+export function GET_ACCOUNTS(pages: number, items: number, query: string) {
+    return api.get(`/tags/users/search?name=${query}&pagination=${pages}&items=${items}`, {
+        headers: {
+            Authorization: 'Bearer ' + getToken(),
+        },
+    });
+}
