@@ -8,6 +8,7 @@ import PostAuthor from './PostAuthor';
 import Like from './Like';
 import Delete from './Delete';
 import Post from './Post';
+import { useLocation } from 'react-router-dom';
 
 interface IPage {
     infinite: boolean;
@@ -17,6 +18,8 @@ interface IPage {
     setIsLoadingRequest: (b: boolean) => void;
     isProfileFeed: boolean;
     getPosts: any
+    setAllPosts: any
+    allPosts: any
 }
 
 const Page = ({
@@ -26,8 +29,12 @@ const Page = ({
     isLoadingRequest,
     setIsLoadingRequest,
     isProfileFeed,
-    getPosts
+    getPosts,
+    setAllPosts,
+    allPosts
 }: IPage) => {
+
+    const { pathname } = useLocation();
 
     const [posts, setPosts] = useState<PostAttributes[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
@@ -53,13 +60,15 @@ const Page = ({
         setIsLoadingRequest(false);
         setLoading(false);
         setPosts(data);
+        setAllPosts(data);
 
         // Verifica se veio menos imagens que o total
         // Subentende-se que acabaram as postagens e não precisa mais fazer requisição
         if (response && status == 200 && data.length < total) setInfinite(false);
     }
 
-    if (loading) return <Spin indicator={<LoadingOutlined spin />} size="small" />;
+    if (pathname === '/' && allPosts.length === 0 && loading && infinite) return <div className='full-page-spin'><Spin /></div>
+    if (loading) return <div className='spin-container'><Spin /></div>;
     if (posts.length > 0) return (
         <>
             {posts.map((post: PostAttributes) => {
