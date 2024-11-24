@@ -1,5 +1,5 @@
 import { UserOutlined } from '@ant-design/icons'
-import { Avatar, Button } from 'antd'
+import { Avatar, Button, Skeleton } from 'antd'
 import { Link } from 'react-router-dom';
 import './styles.css';
 import { IProfileInfo } from './IProfileInfo';
@@ -15,7 +15,8 @@ const ProfileInfo = ({
     isCurrentUser,
     otherUserId,
     totalFollowers,
-    setTotalFollowers
+    setTotalFollowers,
+    isLoadingUserData
 }: IProfileInfo) => {
 
     const { name, bio, profilePicture, following, followingCount } = profileData;
@@ -55,17 +56,18 @@ const ProfileInfo = ({
     }, [following]);
 
     return (
-        <div className={`profile-container ${isCurrentUser && 'profile-grid-current-user'}`}>
-            <ProfilePicture
-                profilePicture={profilePicture}
-                hasLink={false}
-                size={115}
-            />
-            <div className='profile-content'>
-                <h3>{name}</h3>
-                <span><b>{totalFollowers}</b> {totalFollowers > 1 ? 'seguidores' : 'seguindo'}</span><span><b>{followingCount}</b> seguindo</span>
-                <p>{bio}</p>
-                {/* <div className='profile-tags'>
+        <Skeleton loading={isLoadingUserData} >
+            <div className={`profile-container ${isCurrentUser && 'profile-grid-current-user'}`}>
+                <ProfilePicture
+                    profilePicture={profilePicture}
+                    hasLink={false}
+                    size={115}
+                />
+                <div className='profile-content'>
+                    <h3>{name}</h3>
+                    <span><b>{totalFollowers}</b> {totalFollowers > 1 ? 'seguidores' : 'seguindo'}</span><span><b>{followingCount}</b> seguindo</span>
+                    <p>{bio}</p>
+                    {/* <div className='profile-tags'>
                     <h4>Tags do perfil:</h4>
                     <div>
                         <span style={{ borderRadius: "15px", backgroundColor: "#267409", padding: "2px 12px" }}>Natureza</span>
@@ -73,26 +75,27 @@ const ProfileInfo = ({
                         <span style={{ borderRadius: "15px", backgroundColor: "#267409", padding: "2px 12px" }}>Divertida</span>
                     </div>
                 </div> */}
-                {!isCurrentUser &&
-                    <div className='profile-buttons'>
-                        <Button
-                            type="primary"
-                            onClick={handleFollowUser}
-                            loading={isLoadingButton}
-                            className={isFollowing ? "following-button" : ""}
-                        >
-                            <AddIcon />{isFollowing ? "Seguindo" : "Seguir"}
-                        </Button>
-                        <Button type="primary" disabled className='disabled-button'><SendIcon />Conversar</Button>
-                    </div>
+                    {!isCurrentUser &&
+                        <div className='profile-buttons'>
+                            <Button
+                                type="primary"
+                                onClick={handleFollowUser}
+                                loading={isLoadingButton}
+                                className={isFollowing ? "following-button" : ""}
+                            >
+                                <AddIcon />{isFollowing ? "Seguindo" : "Seguir"}
+                            </Button>
+                            <Button type="primary" disabled className='disabled-button'><SendIcon />Conversar</Button>
+                        </div>
+                    }
+                </div>
+                {isCurrentUser &&
+                    <span className='button-settings'>
+                        <Link to="/editar-perfil"><EditIcon /></Link>
+                    </span>
                 }
             </div>
-            {isCurrentUser &&
-                <span className='button-settings'>
-                    <Link to="/editar-perfil"><EditIcon /></Link>
-                </span>
-            }
-        </div>
+        </Skeleton>
     )
 }
 

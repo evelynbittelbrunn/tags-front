@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import './styles.css';
 import { useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
+import SearchAccounts from './searchAccounts/SearchAccounts';
 
 export default function NavBar() {
 
@@ -20,8 +21,8 @@ export default function NavBar() {
     return (
         <div className='navbar-container'>
             <nav>
-                <Link to="/"><HomeOutlined /></Link>
-
+                <Link to="/" style={{ padding: '0 8px' }}><HomeOutlined /></Link>
+                <SearchAccounts />
                 <Popover content={content}>
                     <Avatar icon={<UserOutlined />} />
                 </Popover>

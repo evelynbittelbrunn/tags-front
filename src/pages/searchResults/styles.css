@@ -1,0 +1,14 @@
+#search-page h3 {
+    padding: 15px 0;
+}
+
+.user-account-container {
+    display: flex;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 0.5px solid #370759;
+}
+
+.user-account-container h4 {
+    color: #F0F0F0;
+}

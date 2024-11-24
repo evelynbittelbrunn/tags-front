@@ -13,4 +13,5 @@ export interface IProfileInfo {
     otherUserId: string | undefined;
     totalFollowers: number;
     setTotalFollowers: (totalFollowers: number) => void;
+    isLoadingUserData: boolean;
 }

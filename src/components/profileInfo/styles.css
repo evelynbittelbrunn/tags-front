@@ -1,3 +1,7 @@
+#profile-page .ant-skeleton-paragraph li {
+    background-color: #fff;
+}
+
 .profile-container {
     display: grid;
     grid-template-columns: 110px 1fr;
