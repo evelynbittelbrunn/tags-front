@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { GET_ACCOUNTS } from '../../services/api';
 import ProfilePicture from '../../components/profilePicture/ProfilePicture';
 import './styles.css';
+import { Spin } from 'antd';
 
 interface SearchResult {
     id: string;
@@ -19,16 +20,25 @@ const SearchResults: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const query = searchParams.get('query');
 
-    const fetchResults = async (pageToFetch: number) => {
-        if (!query || loading || !hasMore) return;
+    const fetchResults = async (pageToFetch: number, resetList = false) => {
+        console.log({
+            query,
+            loading,
+            hasMore
+        });
+
+        if (!query || loading || (!resetList && !hasMore)) return;
 
         setLoading(true);
         try {
-            const { data } = await GET_ACCOUNTS(pageToFetch, 10, query);
-            if (data.length === 0) {
+            const { data } = await GET_ACCOUNTS(pageToFetch, 6, query as string);
+
+            setUserList((prevResults) =>
+                resetList ? data : [...prevResults, ...data]
+            );
+
+            if (data.length < 6) {
                 setHasMore(false);
-            } else {
-                setUserList((prevResults) => [...prevResults, ...data]);
             }
         } catch (error) {
             console.error('Erro ao buscar resultados:', error);
@@ -39,9 +49,18 @@ const SearchResults: React.FC = () => {
 
     useEffect(() => {
         if (query) {
+            setUserList([]);
+            setPage(1);
+            setHasMore(true);
+            fetchResults(1, true);
+        }
+    }, [query]);
+
+    useEffect(() => {
+        if (page > 1) {
             fetchResults(page);
         }
-    }, [query, page]);
+    }, [page]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -53,6 +72,7 @@ const SearchResults: React.FC = () => {
                 setPage((prevPage) => prevPage + 1);
             }
         };
+
         window.addEventListener('scroll', handleScroll);
         return () => {
             window.removeEventListener('scroll', handleScroll);
@@ -63,7 +83,7 @@ const SearchResults: React.FC = () => {
         <div id="search-page">
             <h3>🔎 Resultados para: "{query}"</h3>
             {userList.map((user) => (
-                <div key={user.id} className='user-account-container' >
+                <div key={user.id} className="user-account-container">
                     <ProfilePicture
                         profilePicture={user.profilePicture}
                         hasLink={true}
@@ -78,8 +98,8 @@ const SearchResults: React.FC = () => {
                     </div>
                 </div>
             ))}
-            {loading && <p>Carregando mais resultados...</p>}
-            {!hasMore && <p>Não há mais resultados.</p>}
+            {loading && <div className="spin-container"><Spin /></div>}
+            {!hasMore && <div className="spin-container"><p>Não há mais resultados.</p></div>}
         </div>
     );
 };
