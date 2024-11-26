@@ -108,13 +108,15 @@ const TagsModal = ({
                     name="tags"
                     rules={[{ required: true, message: 'Selecione suas tags favoritas ;)', type: 'array' }]}
                 >
-                    <Select mode="multiple" placeholder="Selecione as tags que tem interesse">
-                        {tagsList.map((tag: any) => {
-                            return (
-                                <Option key={tag.value} value={tag.value}>{tag.label}</Option>
-                            )
-                        })}
-                    </Select>
+                    <Select
+                        mode="multiple"
+                        placeholder="Selecione as tags que tem interesse"
+                        showSearch
+                        options={tagsList}
+                        filterOption={(input, option: any) =>
+                            (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                        }
+                    />
                 </Form.Item>
             </Form>
         </Modal >

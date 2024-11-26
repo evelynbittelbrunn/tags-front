@@ -193,6 +193,9 @@ const NewPostModal = ({
                         style={{ width: '100%' }}
                         placeholder="Defina as tags da sua postagem"
                         options={tagsList}
+                        filterOption={(input, option: any) =>
+                            (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                        }
                     />
                 </Form.Item>
             </Form>
