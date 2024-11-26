@@ -22,6 +22,7 @@ const TagsModal = ({
     const { showNotification } = useNotification();
     const { refreshFeed } = useFeedContext();
 
+    const [isSaving, setIsSaving] = useState<boolean>(false);
     const [tagsList, setTagsList] = useState([]);
     const userId = localStorage.getItem('user');
     const [formTags] = Form.useForm();
@@ -56,15 +57,13 @@ const TagsModal = ({
         }
     }
 
-    function handleOk() {
-        setOpenTagsModal(false);
-    };
-
     function handleCancel() {
         setOpenTagsModal(false);
     };
 
     const onFinishTags: FormProps<FieldType>['onFinish'] = async (values) => {
+
+        setIsSaving(true);
 
         try {
 
@@ -75,6 +74,8 @@ const TagsModal = ({
 
             const { data } = await POST_TAGS(categoriesToSave);
             showNotification(data, "success");
+            setOpenTagsModal(false);
+            setIsSaving(false);
             refreshFeed();
         } catch (error) {
 
@@ -91,9 +92,8 @@ const TagsModal = ({
         <Modal
             title="Selecione suas tags"
             open={openTagsModal}
-            onOk={handleOk}
             onCancel={handleCancel}
-            okButtonProps={{ htmlType: "submit", form: "tags-form" }}
+            okButtonProps={{ loading: isSaving, htmlType: "submit", form: "tags-form" }}
             width={450}
         >
             <Form
@@ -108,13 +108,15 @@ const TagsModal = ({
                     name="tags"
                     rules={[{ required: true, message: 'Selecione suas tags favoritas ;)', type: 'array' }]}
                 >
-                    <Select mode="multiple" placeholder="Selecione as tags que tem interesse">
-                        {tagsList.map((tag: any) => {
-                            return (
-                                <Option key={tag.value} value={tag.value}>{tag.label}</Option>
-                            )
-                        })}
-                    </Select>
+                    <Select
+                        mode="multiple"
+                        placeholder="Selecione as tags que tem interesse"
+                        showSearch
+                        options={tagsList}
+                        filterOption={(input, option: any) =>
+                            (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                        }
+                    />
                 </Form.Item>
             </Form>
         </Modal >

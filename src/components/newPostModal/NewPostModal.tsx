@@ -16,6 +16,7 @@ const NewPostModal = ({
     const { showNotification } = useNotification();
     const { refreshFeed, refreshProfileFeed } = useFeedContext();
 
+    const [isSaving, setIsSaving] = useState<boolean>(false);
     const [newImage, setNewImage] = useState<Image>({} as Image);
     const [tagsList, setTagsList] = useState([]);
     const userId = localStorage.getItem('user');
@@ -37,7 +38,6 @@ const NewPostModal = ({
     const handleOk = async () => {
         try {
             await form.validateFields();
-            setOpenNewPostModal(false);
         } catch (error) {
             console.error("Erro na validação dos campos:", error);
         }
@@ -58,6 +58,8 @@ const NewPostModal = ({
 
     const onFinish: FormProps<FieldType>['onFinish'] = async (values: any) => {
 
+        setIsSaving(true);
+
         const userId = localStorage.getItem('user');
 
         const newPost = {
@@ -70,6 +72,8 @@ const NewPostModal = ({
         try {
             const response = await NEW_POST(newPost);
             showNotification("Postagem criada com sucesso!", "success");
+            setOpenNewPostModal(false);
+            setIsSaving(false);
             refreshFeed();
             refreshProfileFeed();
         } catch (error) {
@@ -114,7 +118,7 @@ const NewPostModal = ({
             open={openNewPostModal}
             onOk={handleOk}
             onCancel={handleCancel}
-            okButtonProps={{ htmlType: "submit", form: "new-post-form" }}
+            okButtonProps={{ loading: isSaving, htmlType: "submit", form: "new-post-form" }}
         >
             <Form
                 form={form}
@@ -193,6 +197,9 @@ const NewPostModal = ({
                         style={{ width: '100%' }}
                         placeholder="Defina as tags da sua postagem"
                         options={tagsList}
+                        filterOption={(input, option: any) =>
+                            (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                        }
                     />
                 </Form.Item>
             </Form>

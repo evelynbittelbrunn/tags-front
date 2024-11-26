@@ -23,6 +23,7 @@ export type User = {
 
 export interface IPostAuthor {
     user: User;
+    createdAt: any;
 }
 
 export interface IPostFeed {
