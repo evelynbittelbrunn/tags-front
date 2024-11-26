@@ -23,6 +23,7 @@ const SearchAccounts = () => {
                     placeholder="Busque por usuários"
                     enterButton={<SearchIcon />}
                     onSearch={(value) => onFinish({ query: value })}
+                    style={{ height: '32px' }}
                 />
             </Form.Item>
         </Form>

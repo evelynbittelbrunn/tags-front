@@ -58,6 +58,23 @@
     overflow-y: auto;
 }
 
+.no-comments {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.no-comments p {
+    margin: 10px 0;
+}
+
+.no-scroll .ant-modal-body {
+    overflow-y: hidden !important;
+}
+
 .new-comment-container {
     display: grid;
     grid-template-columns: 32px 1fr;

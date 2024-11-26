@@ -4,9 +4,10 @@ import Comment from '../../comment/Comment';
 import TextArea from 'antd/es/input/TextArea';
 import CommentIcon from '../../icons/CommentIcon';
 import SendIcon from '../../icons/SendIcon';
-import { LoadingOutlined, UserOutlined } from '@ant-design/icons';
+import { CommentOutlined, LoadingOutlined, UserOutlined } from '@ant-design/icons';
 import { GET_COMMENT, POST_COMMENT } from '../../../services/api';
 import { CommentAttributes } from '../IPostFeed';
+import CommentsIcon from '../../icons/CommentsIcon';
 
 interface ICommentModal {
     postId: string;
@@ -117,7 +118,7 @@ const CommentsModal = ({ postId, currentUser, totalComments, setTotalComments }:
                     setComments([]);
                 }}
                 footer={footer}
-                className='comment-modal'
+                className={`comment-modal ${loading && 'no-scroll'}`}
             >
                 {comments.map((comment: CommentAttributes) => {
                     return (
@@ -130,6 +131,12 @@ const CommentsModal = ({ postId, currentUser, totalComments, setTotalComments }:
                         />
                     )
                 })}
+                {(comments.length === 0 && !loading) &&
+                    <div className='no-comments'>
+                        <CommentsIcon />
+                        <p>Nenhum comentário por aqui. Inicie uma conversa :)</p>
+                    </div>
+                }
                 {loading &&
                     <>
                         <Skeleton loading={loading} active avatar />

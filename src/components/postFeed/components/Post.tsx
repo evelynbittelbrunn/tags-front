@@ -19,7 +19,6 @@ const Post = ({ post, user, currentUser, setPosts }: ICardPost) => {
     const [totalLikes, setTotalLikes] = useState<number>(likeCount);
     const [totalComments, setTotalComments] = useState<number>(commentCount);
 
-
     return (
         <div key={id} className='card-post-feed'>
             <div className='post-header'>
