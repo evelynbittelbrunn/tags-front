@@ -11,6 +11,10 @@ const api = axios.create({
     },
 });
 
+export function REGISTER_POST(body: any) {
+    return api.post('/auth/register', body);
+}
+
 export function LOGIN_POST(body: any) {
     return api.post('/auth/login', body);
 }
