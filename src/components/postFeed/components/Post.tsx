@@ -14,7 +14,7 @@ interface ICardPost {
 
 const Post = ({ post, user, currentUser, setPosts }: ICardPost) => {
 
-    const { id, content, imageData, isLiked, likeCount, commentCount } = post;
+    const { id, content, imageData, isLiked, likeCount, commentCount, createdAt } = post;
 
     const [totalLikes, setTotalLikes] = useState<number>(likeCount);
     const [totalComments, setTotalComments] = useState<number>(commentCount);
@@ -23,7 +23,7 @@ const Post = ({ post, user, currentUser, setPosts }: ICardPost) => {
     return (
         <div key={id} className='card-post-feed'>
             <div className='post-header'>
-                <PostAuthor user={user} />
+                <PostAuthor user={user} createdAt={createdAt} />
                 {(user.id === currentUser) &&
                     <Delete postId={id} setPosts={setPosts} />
                 }

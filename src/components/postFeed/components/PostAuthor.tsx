@@ -3,8 +3,9 @@ import { Avatar } from 'antd'
 import { IPostAuthor } from '../IPostFeed'
 import { Link } from 'react-router-dom'
 import ProfilePicture from '../../profilePicture/ProfilePicture'
+import TimeAgo from '../../timeAgo/TimeAgo'
 
-const PostAuthor = ({ user }: IPostAuthor) => {
+const PostAuthor = ({ user, createdAt }: IPostAuthor) => {
 
     const { id, name, profilePicture } = user;
 
@@ -20,7 +21,7 @@ const PostAuthor = ({ user }: IPostAuthor) => {
                 <Link to={`/perfil/${id}`}>
                     <h4>{name}</h4>
                 </Link>
-                <span>Há 3 horas</span>
+                <TimeAgo createdAt={createdAt} />
             </div>
         </span>
     )
