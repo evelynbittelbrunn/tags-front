@@ -16,3 +16,17 @@
     align-items: center;
     height: 100%;
 }
+
+.navbar-container .feed-nav-button {
+    padding: 5px 8px;
+    color: #F0F0F0;
+}
+
+.navbar-container .selected {
+    background-color: #290443;
+    border-radius: 7px;
+}
+
+.navbar-container .ant-input {
+    height: 32px;
+}
