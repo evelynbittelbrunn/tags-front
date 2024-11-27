@@ -23,7 +23,7 @@ jobs:
         run: npm install
 
       - name: Run tests with coverage
-        run: npm test --coverage --passWithNoTests
+        run: npm test --coverage
 
       - name: Upload coverage report to SonarCloud
         uses: SonarSource/sonarcloud-github-action@master
