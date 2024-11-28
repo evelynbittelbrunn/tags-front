@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './styles.css';
 import CheckIcon from '../icons/CheckIcon';
+import { IToastNotification } from './IToastNotification';
 
 const ToastNotification = ({
     message,
