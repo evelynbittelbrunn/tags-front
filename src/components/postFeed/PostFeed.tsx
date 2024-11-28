@@ -46,6 +46,7 @@ export default function PostFeed({
         <>
             {pages.map(page => (
                 <Page
+                    key={page}
                     infinite={infinite}
                     page={page}
                     setInfinite={setInfinite}

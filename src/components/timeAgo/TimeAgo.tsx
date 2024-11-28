@@ -12,9 +12,12 @@ const TimeAgo = ({ createdAt }: ITimeAgo) => {
         locale: ptBR,
     });
 
-    const capitalizeFirstLetter = (string: string) => {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    };
+    function capitalizeFirstLetter(text?: string): string {
+        if (!text) {
+            return '';
+        }
+        return text.charAt(0).toUpperCase() + text.slice(1);
+    }
 
     const formattedText = capitalizeFirstLetter(formattedDistance);
 
