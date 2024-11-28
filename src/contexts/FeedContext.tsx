@@ -7,7 +7,7 @@ interface FeedContextProps {
     refreshProfileFeed: () => void;
 }
 
-const FeedContext = createContext<FeedContextProps | undefined>(undefined);
+export const FeedContext = createContext<FeedContextProps | undefined>(undefined);
 
 export const FeedProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [feedKey, setFeedKey] = useState(0);
