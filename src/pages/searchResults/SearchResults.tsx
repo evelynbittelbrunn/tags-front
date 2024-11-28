@@ -81,7 +81,7 @@ const SearchResults: React.FC = () => {
 
     return (
         <div id="search-page">
-            <h3>🔎 Resultados para: "{query}"</h3>
+            <h3>🔎 Resultados para: "{query || '...'}</h3>
             {userList.map((user) => (
                 <div key={user.id} className="user-account-container">
                     <ProfilePicture
