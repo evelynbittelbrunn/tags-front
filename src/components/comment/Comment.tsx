@@ -57,7 +57,7 @@ const Comment = ({ comment, currentUser, setComments, setTotalComments }: IComme
                     {user.id === currentUser &&
                         <div>
                             <Popover content={popOverContent} trigger="click" placement="bottomRight">
-                                <Button type="text" className='dark-hover'><TreeDotsIcon /></Button>
+                                <Button type="text" className='dark-hover' aria-label="tree dots icon"><TreeDotsIcon /></Button>
                             </Popover>
                         </div>
                     }
