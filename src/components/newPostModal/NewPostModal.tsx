@@ -1,5 +1,5 @@
-import { PlusOutlined } from '@ant-design/icons';
-import { Form, FormProps, message, Modal, Select, SelectProps, Upload } from 'antd'
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { Form, FormProps, message, Modal, Select, SelectProps, Spin, Upload } from 'antd'
 import TextArea from 'antd/es/input/TextArea';
 import { useEffect, useState } from 'react'
 import { GET_TAGS, NEW_POST } from '../../services/api';
@@ -19,6 +19,8 @@ const NewPostModal = ({
     const [isSaving, setIsSaving] = useState<boolean>(false);
     const [newImage, setNewImage] = useState<Image>({} as Image);
     const [tagsList, setTagsList] = useState([]);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+
     const userId = localStorage.getItem('user');
     const [form] = Form.useForm();
 
@@ -106,6 +108,7 @@ const NewPostModal = ({
             });
 
             setTagsList(newList);
+            setIsLoading(false);
 
         } catch (error) {
 
@@ -186,22 +189,23 @@ const NewPostModal = ({
                 >
                     <TextArea placeholder='Compartilhe suas ideias, fotos ou histórias...' rows={4} />
                 </Form.Item>
-
-                <Form.Item
-                    style={{ height: "50px" }}
-                    name="selectedTags"
-                    rules={[{ required: true, message: 'Selecione as tags que combinam com esse post', type: 'array' }]}
-                >
-                    <Select
-                        mode="multiple"
-                        style={{ width: '100%' }}
-                        placeholder="Defina as tags da sua postagem"
-                        options={tagsList}
-                        filterOption={(input, option: any) =>
-                            (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-                        }
-                    />
-                </Form.Item>
+                <Spin indicator={<LoadingOutlined spin />} spinning={isLoading} >
+                    <Form.Item
+                        style={{ height: "50px" }}
+                        name="selectedTags"
+                        rules={[{ required: true, message: 'Selecione as tags que combinam com esse post', type: 'array' }]}
+                    >
+                        <Select
+                            mode="multiple"
+                            style={{ width: '100%' }}
+                            placeholder="Defina as tags da sua postagem"
+                            options={tagsList}
+                            filterOption={(input, option: any) =>
+                                (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                            }
+                        />
+                    </Form.Item>
+                </Spin>
             </Form>
         </Modal>
     )
