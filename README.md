@@ -13,13 +13,13 @@ Antes de rodar o projeto, você precisa ter o Node.js instalado em sua máquina.
 Clone o repositório para a sua máquina local com o seguinte comando:
 
 ```
-git clone https://github.com/seu-usuario/seu-repositorio.git
+git clone https://github.com/evelynbittelbrunn/tags-front.git
 ```
 
 Navegue até o diretório do projeto:
 
 ```
-cd nome-do-repositorio
+cd tags-front
 ```
 
 ## Instalar as dependências
