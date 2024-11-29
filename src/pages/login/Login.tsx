@@ -1,8 +1,9 @@
 import { Button, Form, Input } from 'antd'
 import { UserContext } from '../../contexts/UserContext';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import AuthLayout from '../../components/authLayout/AuthLayout';
 import { Auth } from '../../components/authLayout/IAuthLayout';
+import { UserOutlined } from '@ant-design/icons';
 
 type FieldType = {
     username?: string;
@@ -14,12 +15,17 @@ const Login = () => {
 
     const { userLogin, error, loading } = useContext(UserContext)!;
 
+    const [isLoggingIn, setIsLoggingIn] = useState<boolean>(false);
+
     async function onFinish(data: { email: string; password: string }) {
+
+        setIsLoggingIn(true);
 
         const { email, password } = data;
 
         if (data.email != "" && data.password != "") {
-            userLogin(email, password);
+            await userLogin(email, password);
+            if (!loading) setIsLoggingIn(true);
         }
 
     }
@@ -56,7 +62,13 @@ const Login = () => {
                     </Form.Item>
                 </div>
                 <Form.Item>
-                    <Button className='submit-login' type="primary" htmlType="submit">
+                    <Button
+                        className='submit-login'
+                        type="primary"
+                        htmlType="submit"
+                        icon={<UserOutlined />}
+                        loading={isLoggingIn}
+                    >
                         Entrar
                     </Button>
                 </Form.Item>
