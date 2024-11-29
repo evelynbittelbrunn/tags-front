@@ -42,10 +42,10 @@ Esse comando vai iniciar o servidor de desenvolvimento e abrir o projeto no seu 
 
 ## Abrir o projeto no navegador
 
-Acesso o projeto Tags no navegador em:
+Acesse o projeto Tags no navegador em:
 
 ```
 http://localhost:3000
 ```
 
-E pronto! O projeto está rodando localmente. 🌻
+E pronto! O projeto estará rodando localmente. 🌻
