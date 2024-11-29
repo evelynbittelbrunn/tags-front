@@ -9,6 +9,7 @@ import Like from './Like';
 import Delete from './Delete';
 import Post from './Post';
 import { useLocation } from 'react-router-dom';
+import NoPosts from './NoPosts';
 
 interface IPage {
     infinite: boolean;
@@ -68,6 +69,7 @@ const Page = ({
     }
 
     if (pathname === '/' && allPosts.length === 0 && loading && infinite) return <div className='full-page-spin'><Spin /></div>
+    if (pathname === '/' && allPosts.length === 0 && !loading && !infinite) return <div className='full-page-spin'><NoPosts /></div>
     if (loading) return <div className='spin-container'><Spin /></div>;
     if (posts.length > 0) return (
         <>
@@ -82,6 +84,7 @@ const Page = ({
                             user={user}
                             currentUser={currentUser as string}
                             setPosts={setPosts}
+                            setAllPosts={setAllPosts}
                         />
                     </>
                 )

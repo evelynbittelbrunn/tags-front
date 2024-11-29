@@ -19,10 +19,10 @@ const ProfileInfo = ({
     isLoadingUserData
 }: IProfileInfo) => {
 
-    const { name, bio, profilePicture, following, followingCount } = profileData;
+    const { name, bio, profilePicture, isFollowing, followingCount } = profileData;
 
     const [isLoadingButton, setIsLoadingButton] = useState<boolean>(false);
-    const [isFollowing, setIsFollowing] = useState<boolean>(false);
+    const [isFollowingUser, setIsFollowingUser] = useState<boolean>(false);
 
     const handleFollowUser = async () => {
         setIsLoadingButton(true);
@@ -39,7 +39,7 @@ const ProfileInfo = ({
                 const total = data.isFollowing ? totalFollowers + 1 : totalFollowers - 1;
 
                 setTotalFollowers(total);
-                setIsFollowing(data.isFollowing);
+                setIsFollowingUser(data.isFollowing);
             } else {
                 const error = await response.statusText;
                 console.error("Erro:", error);
@@ -51,9 +51,9 @@ const ProfileInfo = ({
     };
 
     useEffect(() => {
-        if (following === undefined) return;
-        setIsFollowing(following);
-    }, [following]);
+        if (isFollowing === undefined) return;
+        setIsFollowingUser(isFollowing);
+    }, [isFollowing]);
 
     return (
         <Skeleton loading={isLoadingUserData} >
@@ -81,9 +81,9 @@ const ProfileInfo = ({
                                 type="primary"
                                 onClick={handleFollowUser}
                                 loading={isLoadingButton}
-                                className={isFollowing ? "following-button" : ""}
+                                className={isFollowingUser ? "following-button" : ""}
                             >
-                                <AddIcon />{isFollowing ? "Seguindo" : "Seguir"}
+                                <AddIcon />{isFollowingUser ? "Seguindo" : "Seguir"}
                             </Button>
                             <Button type="primary" disabled className='disabled-button'><SendIcon />Conversar</Button>
                         </div>

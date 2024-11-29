@@ -2,7 +2,7 @@ export type ProfileData = {
     bio: string;
     name: string;
     profilePicture: string;
-    following: boolean;
+    isFollowing: boolean;
     followersCount: number;
     followingCount: number;
 }

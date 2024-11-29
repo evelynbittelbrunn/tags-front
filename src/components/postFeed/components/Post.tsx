@@ -10,9 +10,10 @@ interface ICardPost {
     user: User;
     currentUser: string;
     setPosts: (posts: PostAttributes[]) => void;
+    setAllPosts: any;
 }
 
-const Post = ({ post, user, currentUser, setPosts }: ICardPost) => {
+const Post = ({ post, user, currentUser, setPosts, setAllPosts }: ICardPost) => {
 
     const { id, content, imageData, isLiked, likeCount, commentCount, createdAt } = post;
 
@@ -24,7 +25,7 @@ const Post = ({ post, user, currentUser, setPosts }: ICardPost) => {
             <div className='post-header'>
                 <PostAuthor user={user} createdAt={createdAt} />
                 {(user.id === currentUser) &&
-                    <Delete postId={id} setPosts={setPosts} />
+                    <Delete postId={id} setPosts={setPosts} setAllPosts={setAllPosts} />
                 }
             </div>
             <p>{content}</p>

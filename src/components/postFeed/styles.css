@@ -115,3 +115,15 @@
 .submit-comment button {
     padding: 4px 10px;
 }
+
+.no-posts-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.no-posts-container p {
+    margin: 5px 0;
+}

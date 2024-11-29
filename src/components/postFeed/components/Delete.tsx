@@ -4,7 +4,7 @@ import { DELETE_POST } from '../../../services/api';
 import { useNotification } from '../../../contexts/ToastNotificationContext';
 import RemoveIcon from '../../icons/RemoveIcon';
 
-const Delete = ({ postId, setPosts }: IDelete) => {
+const Delete = ({ postId, setPosts, setAllPosts }: IDelete) => {
 
     const { showNotification } = useNotification();
 
@@ -13,6 +13,8 @@ const Delete = ({ postId, setPosts }: IDelete) => {
         if (response.status === 200) {
             // @ts-ignore
             setPosts((prev): PostAttributes[] => prev.filter((post) => post.id !== postId));
+            // @ts-ignore
+            setAllPosts((prev): PostAttributes[] => prev.filter((post) => post.id !== postId));
             showNotification(response.data, "success");
         }
     };

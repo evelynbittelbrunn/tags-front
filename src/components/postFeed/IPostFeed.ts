@@ -46,4 +46,5 @@ export interface ILike {
 export interface IDelete {
     postId: string;
     setPosts: (posts: PostAttributes[]) => void;
+    setAllPosts: (posts: PostAttributes[]) => void;
 }
