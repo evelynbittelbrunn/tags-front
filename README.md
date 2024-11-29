@@ -48,3 +48,4 @@ Acesso o projeto Tags no navegador em:
 http://localhost:3000
 ```
 
+E pronto! O projeto está rodando localmente. 🌻
