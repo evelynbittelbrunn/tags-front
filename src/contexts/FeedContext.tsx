@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 interface FeedContextProps {
     feedKey: number;
@@ -10,11 +11,22 @@ interface FeedContextProps {
 export const FeedContext = createContext<FeedContextProps | undefined>(undefined);
 
 export const FeedProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+
+    const location = useLocation();
+
     const [feedKey, setFeedKey] = useState(0);
-    const [profileFeedKey, setProfileFeedKey] = useState(0);
+    const [profileFeedKey, setProfileFeedKey] = useState(1);
 
     const refreshFeed = () => setFeedKey((prev) => prev + 1);
     const refreshProfileFeed = () => setProfileFeedKey((prev) => prev + 1);
+
+    useEffect(() => {
+        const newFeedKey = Math.random();
+        const newProfileKey = Math.random();
+
+        setFeedKey(newFeedKey);
+        setProfileFeedKey(newProfileKey);
+    }, [location]);
 
     return (
         <FeedContext.Provider value={{ feedKey, profileFeedKey, refreshFeed, refreshProfileFeed }}>
