@@ -1,4 +1,4 @@
-# Tags Front-end: Como rodar o projeto em ambiente local
+# Tags Front-End: Como rodar o projeto em ambiente local
 
 ## Instalar o Node.js
 
