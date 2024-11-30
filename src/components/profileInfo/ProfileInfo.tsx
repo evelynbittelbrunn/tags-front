@@ -65,7 +65,7 @@ const ProfileInfo = ({
                 />
                 <div className='profile-content'>
                     <h3>{name}</h3>
-                    <span><b>{totalFollowers}</b> {totalFollowers > 1 ? 'seguidores' : 'seguindo'}</span><span><b>{followingCount}</b> seguindo</span>
+                    <span><b>{totalFollowers}</b> {totalFollowers > 1 ? 'seguidores' : 'seguidor'}</span><span><b>{followingCount}</b> seguindo</span>
                     <p>{bio}</p>
                     {/* <div className='profile-tags'>
                     <h4>Tags do perfil:</h4>

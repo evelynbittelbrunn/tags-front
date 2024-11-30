@@ -59,7 +59,7 @@
   
 .login-cover {
     flex: 1;
-    background: url('../../../public/img/login-picture.jpg') center/cover no-repeat;
+    background: url('../../../public/img/login-picture.png') center/cover no-repeat;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

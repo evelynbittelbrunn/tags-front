@@ -148,9 +148,9 @@ const NewPostModal = ({
                                 return Upload.LIST_IGNORE;
                             }
 
-                            const maxFileSize = 5 * 1024 * 1024;
+                            const maxFileSize = 750 * 1024;
                             if (file.size > maxFileSize) {
-                                message.error('O tamanho da imagem não pode exceder 5 MB.');
+                                message.error('O tamanho da imagem não pode exceder 750 KB.');
                                 return Upload.LIST_IGNORE;
                             }
 
