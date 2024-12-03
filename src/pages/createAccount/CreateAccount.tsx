@@ -16,8 +16,6 @@ const CreateAccount = () => {
 
     const { userLogin, error, loading } = useContext(UserContext)!;
 
-    console.log(loading);
-
     const [isRegistering, setIsRegistering] = useState<boolean>(false);
 
     async function onFinish({ name, email, password }: { name: string; email: string; password: string }) {

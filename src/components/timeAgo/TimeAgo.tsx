@@ -7,7 +7,7 @@ interface ITimeAgo {
 
 const TimeAgo = ({ createdAt }: ITimeAgo) => {
 
-    const formattedDistance = formatDistanceToNow(new Date(createdAt), {
+    const formattedDistance = formatDistanceToNow(new Date(`${createdAt}Z`), {
         addSuffix: true,
         locale: ptBR,
     });

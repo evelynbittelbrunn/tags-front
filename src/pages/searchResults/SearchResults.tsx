@@ -21,11 +21,6 @@ const SearchResults: React.FC = () => {
     const query = searchParams.get('query');
 
     const fetchResults = async (pageToFetch: number, resetList = false) => {
-        console.log({
-            query,
-            loading,
-            hasMore
-        });
 
         if (!query || loading || (!resetList && !hasMore)) return;
 

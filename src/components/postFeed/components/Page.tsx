@@ -61,7 +61,7 @@ const Page = ({
         setIsLoadingRequest(false);
         setLoading(false);
         setPosts(data);
-        setAllPosts(data);
+        setAllPosts((prev: any) => [...prev, ...data]);
 
         // Verifica se veio menos imagens que o total
         // Subentende-se que acabaram as postagens e não precisa mais fazer requisição
@@ -78,15 +78,14 @@ const Page = ({
                 const { user } = post;
 
                 return (
-                    <>
-                        <Post
-                            post={post}
-                            user={user}
-                            currentUser={currentUser as string}
-                            setPosts={setPosts}
-                            setAllPosts={setAllPosts}
-                        />
-                    </>
+                    <Post
+                        key={post.id}
+                        post={post}
+                        user={user}
+                        currentUser={currentUser as string}
+                        setPosts={setPosts}
+                        setAllPosts={setAllPosts}
+                    />
                 )
             })}
         </>
